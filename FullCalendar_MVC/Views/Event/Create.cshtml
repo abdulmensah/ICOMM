@@ -1,0 +1,84 @@
+﻿@model FullCalendar_MVC.AppointmentDiary
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AppointmentDiary</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SomeImportantKey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SomeImportantKey)
+            @Html.ValidationMessageFor(model => model.SomeImportantKey)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateTimeScheduled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateTimeScheduled)
+            @Html.ValidationMessageFor(model => model.DateTimeScheduled)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AppointmentLength)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AppointmentLength)
+            @Html.ValidationMessageFor(model => model.AppointmentLength)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StatusENUM)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StatusENUM)
+            @Html.ValidationMessageFor(model => model.StatusENUM)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventType)
+            @Html.ValidationMessageFor(model => model.EventType)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script src="~/Scripts/jquery.isotope.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/wow.min.js"></script>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container" ">
+    <div class="row">
+        <div class="col-md-12">
+            <script>
+
+//register call back once custom search result gets load
+(function () {
+window.__gcse = {
+callback: searchCallback
+};
+function searchCallback() {
+$('#gsc-i-id1').focus();
+ $('#gsc-i-id1').val('@ViewBag.SearchString');
+ $(".gsc-search-button").trigger('click');
+ }
+    var cx = '015022800145349881641:i9eeqmkjr-u';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+})();
+            </script>
+            <gcse:search>
+            </gcse:search>
+        </div>
+    </div>
+</div>

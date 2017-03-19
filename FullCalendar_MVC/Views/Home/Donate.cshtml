@@ -1,0 +1,75 @@
+﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
+@{
+    ViewBag.Title = "Home";
+}
+@section scripts{
+    @*<script src="~/Scripts/jquery.js"></script>*@
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>  
+      <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <script src="~/Scripts/jquery.isotope.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".nav li").removeClass("active");//this will remove the active class from
+        $('#lDonate').addClass('active');
+    
+    });
+
+</script>
+
+
+}
+<br />
+<br />
+<br />
+<br />
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%; z-index:78">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div>
+<br />
+
+<section style="background-image:url(../../Content/images/bg-blue-sky.jpg); background-size:cover; padding-top:10px; width:100%; color:#fff" id="Donations">
+    <div class="container">
+        <div style="padding-top:150px; width:100%" class="center wow fadeInDown">
+            <h2 style="color:#fff">Donations</h2>
+            <div style="color:#fff; top:-100px; font-size:14pt;padding-bottom:50px">
+                <i style="font-size:8pt; color:#fff" class="fa fa-quote-left"></i>ٱلَّذِينَ يُنفِقُونَ أَمْوَٰلَهُم بِٱلَّيْلِ وَٱلنَّهَارِ سِرًّا وَعَلَانِيَةً فَلَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ وَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ<i style="font-size:8pt; color:#fff;" class="fa fa-quote-right"></i> <br />
+                <span style="font-size:10pt">Those who (in charity) spend of their goods by night and by day, in secret and in public, have their reward with their Lord: on them shall be no fear, nor shall they grieve.- <strong>Quran</strong> 2:274</span>
+            
+            </div>
+            <cite style="font-size:12pt;padding-top:150px">
+                Thank you for considering ICOM MD for your donations. Right place, right contribution.
+
+                Please donate generously to contribute to your Community Center to serve community of Allah.
+
+                Your check out is safe and secure transaction secured by either PayPal or GoFundMe. Choose your choice below:
+
+            </cite>
+
+        </div>
+        <div class="partners">
+            <ul>
+                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+                <li> <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="~/Content/images/paypal_button-2.png"></a></li>
+                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+                <li> <a href="https://www.gofundme.com/ICOMMD"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="~/Content/images/gfmlogoem2.png"></a></li>
+                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

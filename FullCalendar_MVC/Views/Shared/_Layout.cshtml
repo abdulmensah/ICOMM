@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>ICOM - @ViewBag.Title - Islamic Center of Owings Mills </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@Styles.Render("~/Content/css")
+        @
+
+    *@
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/css/main.css" rel="stylesheet">
+    <link href="~/Content/css/responsive.css" rel="stylesheet">
+    @Scripts.Render("~/bundles/modernizr")
+<script>
+    //function RunLink(url) {
+    //    idx = url.indexOf("#")
+    //    var hash = idx != -1 ? url.substring(idx + 1) : "";
+
+    //    location.href = url;
+    //    if (hash != null && hash.length > 0) {
+    //        switch (hash)
+    //        {
+    //            case 'Services':
+    //                linkPage = '#lServices';
+    //                break;
+    //            case 'Donations':
+    //                linkPage = '#lDonate';
+    //                break;
+    //            default:
+    //                linkPage = '#lGallery';
+    //                break;
+    //        }
+    //        //if (hash == 'Services') {
+    //        //    linkPage = '#lServices';
+    //        //} else {
+    //        //    linkPage = '#lDonate';
+    //        //}
+    //        $(".nav li").removeClass("active"); $(linkPage).addClass('active');
+    //    }
+    //}
+
+</script>
+    <link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
+    @*<link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/images/ico/apple-touch-icon-57-precomposed.png">*@
+
+</head>
+<body class="homepage">
+    <header style="width: 100%;
+    position: fixed; z-index:80" id="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-4">
+                        <div class="top-number"><p><a style="font-size:15pt; font-weight:bold" href="tel:+1(443) 738-5553"><i class="fa fa-phone-square"></i> +1(443) 738-5553 </a>
+                                                                                             
+</p></div>
+                    </div>
+  <div class="col-sm-6 col-xs-8">
+        <div class="donate">
+            <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick">
+                <img src="~/Content/images/PayPal.png" />
+            </a>
+            <img src="~/Images/spacer.gif" style="width:8px;height:1px" />
+            <a href="https://www.gofundme.com/ICOMMD">
+                <img src="~/Content/images/goFundMe.png" />
+            </a>
+        </div>
+        <div class="social">
+           <ul class="social-share">
+                <li><a href="https://www.facebook.com/ICOMMD/"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/icom_md"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/icom-md-0a2068139/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="https://plus.google.com/u/0/110477846453093093033"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="~/Event"><i class="fa fa-lock"></i></a></li>
+            </ul>
+            <div class="search">
+                @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                {
+                    <div role="form">
+                        <input type="text" name="SearchString" class="search-form" autocomplete="off" placeholder="Search">
+                        <i class="fa fa-search"></i>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="~/Home/Index"><img src="~/Content/images/logoIcoms.png" alt="logo"></a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li id="lHome"><a href="~/Home/Index">Home</a>|</li>
+                        <li id="lAbout" ><a href="~/Home/About">About Us</a>|</li>
+                        <li id="lServices"><a href="~/Home/Services">Services</a>|</li>
+                        <li id="lContact"><a href="~/Home/Contact">Contact Us</a>|</li>
+                        <li id="lFAQ" ><a href="~/Home/FAQ">FAQ</a>|</li>
+                        <li id="lDonate"><a href="~/Home/Donate">Donate</a>|</li>
+                        <li id="lGallery"><a href="~/Home/Gallery">Gallery</a></li>
+                                                                        @*
+                        <li id="lServices" style="cursor: pointer;" onclick="RunLink('Index#Services')"><a onclick="RunLink('Index#Services')" >Services</a>|</li>
+         <li id="lDonate" style="cursor: pointer;" onclick="RunLink('Index#Donations')"><a onclick="RunLink('Index#Donations')">Donate</a>|</li>
+        <li id="lGallery" style="cursor: pointer;" onclick="RunLink('Index#Gallery')"><a onclick="RunLink('Index#Gallery')">Gallery</a></li>
+             <li><a href="~/Account/Login"><span class="fa fa-lock" aria-hidden="true"></span> Login</a></li>
+            <li class="dropdown">      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Drop Down<i class="fa fa-angle-down"></i></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#">One</a></li>
+                      <li><a href="#">One</a></li>
+                      <li><a href="#">One</a></li>
+                      <li><a href="#">One</a></li>
+                  </ul>
+              </li>
+              <li><a href="blog.html">Blog</a>|</li>*@
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @*<div style="position: absolute; right: 0px;">
+                                  <li id="lContact"  onclick="return RunLink('Contact')" ><a href="#" onclick="RunLink('Contact')">Contact Us</a>|</li>
+          <script type="text/javascript" src="http://www.muslimpro.com/muslimprowidget.js?cityid=4364727&language=en&width=350&timeformat=24&headerbackgroundcolor=0A3BA2&headertextcolor=ffffff&textcolor=000000&rowbackgroundcolor1=eeeeee&rowbackgroundcolor2=cccccc" async></script>
+        </div>*@
+    </header>
+
+
+
+
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+    <input type="hidden" id="hashFile" />
+    <div style="padding-bottom:5px; padding-top:25px; width:100%; color:#0A3BA2; border-top:5px solid #0A3BA2" class="center wow fadeInDown">
+        <h2 style="color:#0A3BA2">Community Partners</h2>
+
+    </div>
+    <section id="partner">
+        <div class="container">
+            <div class="partners">
+                <ul>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+                    <li> <a href="http://www.alrahmah.org"><img class="img-responsive wow fadeInDown" style="width:113px; height:113px" data-wow-duration="1000ms" data-wow-delay="300ms" src="~/Content/images/partners/Alrahmah.png"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+                    <li> <a href="https://www.isb.org"><img class="img-responsive wow fadeInDown" style="width:113px; height:113px" data-wow-duration="1000ms" data-wow-delay="600ms" src="~/Content/images/partners/isb.jpeg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="conatcat-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="media contact-info wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="~/Content/images/service/phone.png" width="60" height="60" alt="Phone">
+                        </div>
+                        <div class="media-body">
+                            <h2>Have a question, a concern or a suggestion about ICOM or Islam?</h2>
+                            <p>
+                                It's Your Place, Your Opportunity!! Submit all questions, concerns or suggestions to us by clicking
+                                <br /> <a href="~/Home/Contact">Contact Us</a> of simply calling us at +1(443) 738-5553.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style=" border-top: 5px solid #1EBB11;" id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2017 <a target="_blank" href="https://www.icommd.org" title="Free Islamic Templates">Islamic Center of Owings Mills (ICOM)</a>. All Rights Reserved. Developed by <a href="mailto:info@JandG.us">JnG LLC</a>.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><a href="~/Home/Index">Home</a></li>
+                        <li><a href="~/Home/About">About Us</a></li>
+                        <li><a href="~/Home/Services">Services</a></li>
+                        <li><a href="~/Home/Contact">Contact Us</a></li>
+                        <li><a href="~/Home/FAQ">FAQ</a></li>
+                        <li><a href="~/Home/Donate">Donate</a></li>
+                        <li><a href="~/Home/Gallery">Gallery</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,357 @@
+﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
+@{
+    ViewBag.Title = "Home";
+}
+@section scripts{
+    @*<script src="~/Scripts/jquery.js"></script>*@
+<script src="~/Scripts/jquery-1.8.2.js"></script>  
+      <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <script src="~/Scripts/jquery.isotope.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $(".nav li").removeClass("active");//this will remove the active class from
+        $('#lHome').addClass('active');
+        var dInfo = "1970/12/02 ";
+        var d = new Date(dInfo);
+        $.getJSON('http://muslimsalat.com/owings-mills/daily.json?key=API_KEY&jsoncallback=?', function (times) {
+            //alert(moment(d).add(15,'minutes'));
+            d = new Date(dInfo + times.items[0].fajr);
+            $('#tdmsFajr').html(moment(d).format('LT'));
+            $('#tdFajr').html(moment(d).add(27, 'minutes').format('LT'));
+            d = new Date(dInfo + times.items[0].dhuhr);
+            $('#tdmsDhuhr').html(moment(d).format('LT'));
+            $('#tdDhuhr').html(moment(d).add(15, 'minutes').format('LT'));
+            d = new Date(dInfo + times.items[0].asr);
+            $('#tdmsAsr').html(moment(d).format('LT'));
+            $('#tdAsr').html(moment(d).add(67, 'minutes').format('LT'));
+            d = new Date(dInfo + times.items[0].maghrib);
+            $('#tdmsMaghrib').html(moment(d).format('LT'));
+            $('#tdMaghrib').html(moment(d).add(9, 'minutes').format('LT'));
+            d = new Date(dInfo + times.items[0].isha);
+            $('#tdmsIsha').html(moment(d).format('LT'));
+            $('#tdIsha').html(moment(d).add(22, 'minutes').format('LT'));
+            //.append('1970/12/02 ' + times.items[0].fajr)
+            //.append(' Dhuhr: ' + times.items[0].dhuhr)
+            //.append(' Asr: ' + times.items[0].asr)
+            //.append(' Maghrib: ' + times.items[0].maghrib)
+            //.append(' Isha: ' + times.items[0].isha)
+            //.append(' by MuslimSalat.com');
+        });
+
+
+        GetAllEvents();
+
+        function GetAllEvents() {
+
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("/GetEvents")',
+                data: {},
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var Events = '';
+                    for (var i = 0; i < data.length; i++) {
+
+                        Events = Events + '<div class="col-sm-6 col-md-4"><div class="media services-wrap wow fadeInDown"><div class="pull-left">'
++'<img class="img-responsive" src="../Content/images/services/Service.png"></div><div class="media-body"><h2>'
++ data[i].Title + '</h2><p style="color:white">' + data[i].Description + ' <br /><b> ' + data[i].EventDate + '</b></p></div></div></div>';
+
+                    }
+                    $('#AllEvents').empty();
+                    $('#AllEvents').html(Events);
+                }
+            });
+        }
+    });
+
+</script>
+
+
+}
+<br />
+<br />
+<br />
+<br />
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%; z-index:78">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div>
+<br />
+<div id="prayerTimesExample" style="background-color:#0A3BA2; color:white; position:fixed; height:30px; width:100%; z-index:78">
+    <img src="~/Images/spacer.gif" style="width:40px;height:1px" />
+    <iframe src="http://www.whatdate.net/p/hijri-bottom.html?
+                font=italic+small-caps+bold+14pt%251+comic+sans+ms&color=%23FFFFFF"
+            frameBorder="0"
+            seamless="seamless"
+            scrolling="no"
+            style="height:20px; width:200px; padding-top:5px; margin-left:25%; display:inline"></iframe>
+    <img src="~/Images/spacer.gif" style="width:120px;height:1px" /><span style="font-size:12pt;">
+        (  @ViewBag.CurrDate)
+    </span> 
+</div>
+
+<section  id="main-slider" class="no-margin">
+    <div  class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slider" data-slide-to="1"></li>
+            <li data-target="#main-slider" data-slide-to="2"></li>
+            <li data-target="#main-slider" data-slide-to="3"></li>
+        </ol>
+        <div style="height:600px" class="carousel-inner">
+            <div class="item active" style="background-image:url(../../Content/images/slider/bg1.jpg)">
+                <div class="container">
+                    <div class="row slide-margin">
+                        <div class="col-sm-6">
+                            <div class="carousel-content">
+
+                                <h1 class="animation animated-item-1">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h1>
+                                <h2 class="animation animated-item-2">As-Salaamu Alaikum, <br>Welcom to the Islamic Center of Owings Mills (ICOM).
+                                    <br> <br>Maasha Allah! ICOM was graced with it's first full house for the inuagural Jummah prayer this Friday, March 17. Jazak Allah Khair! Insha Allah, the turnout will only grow from here!
+                                    <br><br /> ICOM's primary goal is to serve and engage Muslims by establishing daily congregational prayers; promoting the progressive values, teachings and practices of Islam...</h2>
+                                <a class="btn-slide animation animated-item-3" href="~/Home/About">Read More</a>
+                            </div>
+                        </div>
+                        <div style="padding-left:100px"  class="col-sm-6 hidden-xs animation animated-item-4">
+                            <div class="slider-img">
+                                <img src="~/Content/images/slider/img1.png" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background-image:url(../../Content/images/slider/bg2.jpg)">
+                <div class="container">
+                    <div class="row slide-margin">
+                        <div class="col-sm-6">
+                            <div class="carousel-content">
+                                <h1 class="animation animated-item-1">Dua of the Day</h1>
+                                <h2 class="animation animated-item-2">
+                                    رَبَّنَآ اَفْرِغْ عَلَيْنَا صَبْرًا وَّثَبِّتْ اَقْدَامَنَا وَانْصُرْنَا عَلَي الْقَوْمِ الْكٰفِرِيْنَ
+                                    <br />
+                                    <em>Our Lord! Pour forth on us patience and make us victorious over the disbelieving people.</em>
+                                </h2>
+                                <a class="btn-slide animation animated-item-3" href="#">Read More</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden-xs animation animated-item-4">
+                            <div class="slider-img">
+                                <img src="~/Content/images/slider/img2.png" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background-image:url(../../Content/images/slider/bg3.jpg)">
+                <div class="container">
+                    <div class="row slide-margin">
+                        <div class="col-sm-6">
+                            <div class="carousel-content">
+                                <h1 class="animation animated-item-1">Qu'ran Verse of the Day <span style="font-size:12pt">Al-Baqarah  286</span></h1>
+                                <h2 class="animation animated-item-2">لا يُكَلِّفُ اللَّهُ نَفسًا إِلّا وُسعَها  لَها ما كَسَبَت وَعَلَيها مَا اكتَسَبَت  رَبَّنا لا تُؤاخِذنا إِن نَسينا أَو أَخطَأنا  رَبَّنا وَلا تَحمِل عَلَينا إِصرًا كَما حَمَلتَهُ عَلَى الَّذينَ مِن قَبلِنا  رَبَّنا وَلا تُحَمِّلنا ما لا طاقَةَ لَنا بِهِ  وَاعفُ عَنّا وَاغفِر لَنا وَارحَمنا  أَنتَ مَولانا فَانصُرنا عَلَى القَومِ الكافِرينَ <br>
+                                    <em><br />
+                                        Allah does not task any soul beyond its capacity. Whatever [good] it earns is to its benefit, and whatever [evil] it incurs is to its harm.
+                                        <br>‘Our Lord! Take us not to task if we forget or make mistakes! Our Lord! Place not upon us a burden as You placed on those who were before us! Our Lord! Lay not upon us what we have no strength to bear! Excuse us and forgive us, and be merciful to us! You are our Master, so help us against the faithless lot!’ 
+                                    </em></h2>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden-xs animation animated-item-4">
+                            <div class="slider-imgqv">
+                                <img src="~/Content/images/slider/img3.png" style="" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+    <a class="next hidden-xs" href="#main-slider" data-slide="next">
+        <i class="fa fa-chevron-right"></i>
+    </a>
+</section>
+<div style="padding-bottom:5px; padding-top:25px; width:100%; color:#0A3BA2; border-top:5px solid #0A3BA2" class="center wow fadeInDown">
+    <h2 style="color:#0A3BA2">ICOM Center & Community Events</h2>
+  
+</div>
+<section style="padding-top:45px" id="Events" class="service-item">
+    <div class="container">
+        <div id="AllEvents" class="row">
+
+        </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="~/Content/images/adhan.png">
+                        </div>
+                        <div class="media-body">
+                            <h2>
+                                Prayer Times - Athan
+                            </h2>
+                            <div class="panel embeded-times panel-primary">
+                                <div style="font-size:12pt; padding: 3px 15px; color:white; background-color:#1EBB11; border-top-left-radius:4px; border-top-right-radius:4px;">
+                                    <b>Owings Mills, MD 21117 USA</b>
+                                </div>
+
+                                <div class="panel-body">
+                                    <table>
+                                        <tr>
+                                            <td style="font-weight:bold">
+                                                Fajr
+                                            </td>
+                                            <td id="tdmsFajr" style="padding-left:20px"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">
+                                                Dhuhr
+                                            </td>
+                                            <td id="tdmsDhuhr" style="padding-left:20px"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">
+                                                Asr
+                                            </td>
+                                            <td id="tdmsAsr" style="padding-left:20px"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">
+                                                Maghrib
+                                            </td>
+                                            <td id="tdmsMaghrib" style="padding-left:20px"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">
+                                                Isha
+                                            </td>
+                                            <td id="tdmsIsha" style="padding-left:20px"></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="panel-footer"><span class="text-muted">prayer times by</span> <a href="http://MuslimSalat.com">MuslimSalat.com</a> <div class="pull-right hidden"><a href="#"><i class="icon-volume-up gray"></i></a> <a href="#" class="hidden"><i class="icon-gear gray"></i></a></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="~/Content/images/muslim-prayer.png">
+                        </div>
+                        <div class="media-body">
+                            <h2>
+                                Prayer Times - Iqamah
+                            </h2>
+                            <div class="panel embeded-times panel-primary">
+                                <div style="font-size:12pt; padding: 3px 15px; color:white; background-color:#0A3BA2; border-top-left-radius:4px; border-top-right-radius:4px;">
+                                    <b>ICOM Masjid</b>
+                                </div>
+
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#Salaat">Daily Salaat</a></li>
+                                    <li><a data-toggle="tab" href="#Jummah">Jummah</a></li>
+                                </ul>
+                                <div style="display:inline" class="tab-content">
+                                    <div id="Salaat" class="tab-pane fade in active">
+                                        <div class="panel-body">
+                                            <table>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Fajr
+                                                    </td>
+                                                    <td id="tdFajr" style="padding-left:20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Dhuhr
+                                                    </td>
+                                                    <td id="tdDhuhr" style="padding-left:20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Asr
+                                                    </td>
+                                                    <td id="tdAsr" style="padding-left:20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Maghrib
+                                                    </td>
+                                                    <td id="tdMaghrib" style="padding-left:20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Isha
+                                                    </td>
+                                                    <td id="tdIsha" style="padding-left:20px"></td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div id="Jummah" class="tab-pane fade">
+                                        <div class="panel-body">
+                                            <table>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Khutbah
+                                                    </td>
+                                                    <td id="tdKhutbah" style="padding-left:20px">1:15 PM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:bold">
+                                                        Iqamah
+                                                    </td>
+                                                    <td id="tdJIqamah" style="padding-left:20px">1:45 PM</td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        
+                        </div>
+                                                      
+                        
+                   
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="~/Content/images/calendar-template.png">
+                        </div>
+                        <div class="media-body">
+                            <h2>Special Islamic Days</h2>
+                            <iframe id="iframe" style="width: 270px; height: 258px; border: 1px solid #ddd;" frameborder="0" scrolling="yes" src="~/_SpecialDaysPartial.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+

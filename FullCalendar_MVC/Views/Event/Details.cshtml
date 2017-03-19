@@ -1,0 +1,64 @@
+﻿@model FullCalendar_MVC.AppointmentDiary
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>AppointmentDiary</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SomeImportantKey)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SomeImportantKey)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateTimeScheduled)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateTimeScheduled)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AppointmentLength)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AppointmentLength)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StatusENUM)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StatusENUM)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventType)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

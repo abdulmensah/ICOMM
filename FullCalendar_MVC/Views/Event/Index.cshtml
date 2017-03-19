@@ -1,0 +1,468 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
+<link href="~/Content/site.css" rel="stylesheet">
+<link href="~/Content/bootstrap.css" rel="stylesheet">
+
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-modal.js"></script>
+
+
+<link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
+<link href="~/Content/css/font-awesome.css" rel="stylesheet">
+<link href="~/Content/fullcalendar.css" rel="stylesheet">
+<script src="~/Scripts/fullcalendar.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var sourceFullView = { url: '/Event/GetDiaryEvents/' };
+        var sourceSummaryView = { url: '/Event/GetDiarySummary/' };
+        var CalLoading = true;
+
+        $('.fc-event').remove();
+
+
+        $('#btnInit').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "/Event/Init",
+                success: function (response) {
+                    if (response == 'True') {
+                        $('#calendar').fullCalendar('refetchEvents');
+                        alert('Database populated! ');
+                    }
+                    else {
+                        alert('Error, could not populate database!');
+                    }
+                }
+            });
+        });
+
+
+        $('#btnPopupCancel').click(function () {
+            ClearPopupFormValues();
+            $('#popupEventForm').hide();
+        });
+
+
+        $('#btnPopupSave').click(function () {
+
+        //    $('#popupEventForm').hide();
+
+            SaveEvents();        });
+
+
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultView: 'agendaDay',
+            editable: true,
+            allDaySlot: false,
+            selectable: true,
+            slotMinutes: 15,
+            events: '/Event/GetDiaryEvents/',
+            eventClick: function (calEvent, jsEvent, view) {
+                DisplayEventDetails(calEvent);
+            },
+
+            eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
+                if (confirm("Confirm move?")) {
+                    UpdateEvent(event.id, event.start);
+                }
+                else {
+                    revertFunc();
+                }
+            },
+
+            eventResize: function (event, dayDelta, minuteDelta, revertFunc) {
+
+                if (confirm("Confirm change appointment length?")) {
+                    UpdateEvent(event.id, event.start, event.end);
+                }
+                else {
+                    revertFunc();
+                }
+            },
+
+
+
+            dayClick: function (date, allDay, jsEvent, view) {
+                $('#eventTitle').val("");
+                $('#eventDate').val($.fullCalendar.formatDate(date, 'dd/MM/yyyy'));
+                $('#eventTime').val($.fullCalendar.formatDate(date, 'HH:mm'));
+                ShowEventPopup(date);
+            },
+
+            viewRender: function (view, element) {
+
+                if (!CalLoading) {
+                    if (view.name == 'month') {
+                        $('#calendar').fullCalendar('removeEventSource', sourceFullView);
+                        $('#calendar').fullCalendar('removeEvents');
+                        $('#calendar').fullCalendar('addEventSource', sourceSummaryView);
+                    }
+                    else {
+                        $('#calendar').fullCalendar('removeEventSource', sourceSummaryView);
+                        $('#calendar').fullCalendar('removeEvents');
+                        $('#calendar').fullCalendar('addEventSource', sourceFullView);
+                    }
+                }
+            }
+
+        });
+
+        CalLoading = true;
+
+
+    });
+
+    function ShowEventPopup(date) {
+        ClearPopupFormValues();
+        $('#popupEventForm').dialog({
+            resizable: false,
+            height: "auto",
+            width: 600,
+            modal: true,
+            buttons: {
+                "Save Event": SaveEvents,
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                $(this).dialog("close")
+            }
+        });
+        $('#eventTitle').focus();
+    }
+
+    function SaveEvents()
+    {
+
+        var dataRow = {
+            'Title': $('#eventTitle').val(),
+            'Description': $('#eventDescription').val(),
+            'NewEventDate': $('#eventDate').val(),
+            'NewEventTime': $('#eventTime').val(),
+            'NewEventDuration': $('#eventDuration').val(),
+            'NewEventType': $("#eventType option:selected").val(),
+            'EventID': $("#eventID").val()
+        }
+
+        ClearPopupFormValues();
+
+        $.ajax({
+            type: 'POST',
+            url: "/Event/SaveEvent",
+            data: dataRow,
+            success: function (response) {
+                if (response == 'True') {
+                    $('#calendar').fullCalendar('refetchEvents');
+                    alert('New event saved!');
+                    $("#popupEventForm").dialog("close")
+                }
+                else {
+                    alert('Error, could not save event!');
+                }
+            }
+        });
+    }
+
+
+    function ClearPopupFormValues() {
+        $('#eventID').val("0");
+        $('#eventTitle').val("");
+        $('#eventDescription').val("");
+        $('#eventDateTime').val("");
+        $('#eventDuration').val("");
+        $('#eventDuration').val("");
+        $("#eventType option[value='1']").prop('selected', true);
+    }
+
+    function UpdateEvent(EventID, EventStart, EventEnd) {
+
+        var dataRow = {
+            'ID': EventID,
+            'NewEventStart': EventStart,
+            'NewEventEnd': EventEnd
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "/Event/UpdateEvent",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(dataRow)
+        });
+    }
+    function DisplayEventDetails(EventID) {
+    //    alert('You clicked on event id: ' + EventID.id
+    //+ "\nSpecial ID: " + EventID.someKey
+    //+ "\nAnd the title is: " + EventID.title);
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/Event/GetEventDetail",
+            data: { Id: EventID.id },
+            dataType: "json",
+            traditional: true,
+            success: function (data) {
+                EventRawData = JSON.stringify(data);
+                if (EventRawData.length > 0)
+                {
+                    EventData = JSON.parse(EventRawData);
+                    var EventDates = new Date(EventData.DateTimeScheduled.match(/\d+/)[0] * 1)
+
+                    CurrMetTxt = "#eventType option[value='" + EventData.EventType + "']";
+
+                    $('#eventID').val(EventData.ID);
+                    $('#eventTitle').val(EventData.Title);
+                    $('#eventDescription').val(EventData.Description);
+                    $('#eventDate').val($.fullCalendar.formatDate(EventDates, 'dd/MM/yyyy'));
+                    $('#eventTime').val($.fullCalendar.formatDate(EventDates, 'HH:mm'));
+                    $('#eventDuration').val(EventData.AppointmentLength);
+                    $(CurrMetTxt).prop('selected', true);
+                    $('#popupEventForm').dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: 600,
+                        modal: true,
+                        buttons: {
+                            "Save Event": SaveEvents,
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        close: function () {
+                            $(this).dialog("close")
+                        }
+                    });
+                    $('#eventTitle').focus();
+                    // $("#eventType select").val(data[0].Value);
+
+                    //$(CurrMetTxt).attr('selected', 'selected');
+
+                };
+
+            }
+        });
+    }
+
+
+    function GetEventInfo() {       //        userTy=$('#txtCompanyTypeID option:selected').val();
+        // alert(CompID);
+        $.ajax({
+            type: "get",
+            url: '@Url.Action("/ShowEvents")',
+            data: {},
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var Events = "<select id='EventID'>";
+                Events = Events + '<option value="0">--Select Event--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    Events = Events + '<option value=' + data[i].ID + '>' + data[i].Title + '</option>';
+                }
+                Events = Events + '</select>';
+                $('#EventID').html(Events);
+            }
+        });
+    }
+</script>
+
+<div style="background-color:darkblue; font-size:13pt; color:white" class="social">
+    <div style="text-align:right" class="search">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+   <div role="form">
+                <a style="font-size:20pt;display:inline; color:white" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Log off</a>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+<h2>Index</h2>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+
+
+    <div id='calendar' style="width:65%"></div>
+
+</div>
+<div id="popupEventForm" title="Add new event"  class="modal hide" style="display: none;">
+    <table>
+        <tr>
+            <td style="padding-right:30px">
+                <input type="hidden" id="eventID">
+                <label>Event title</label>
+                <input type="text" id="eventTitle" placeholder="Title here"><br />
+                <label>Description</label>
+                <textarea id="eventDescription" class="form-control" placeholder="Description here" rows="3"></textarea><br />
+
+            </td>
+            <td>
+                <label>Scheduled date</label>
+                <input type="text" id="eventDate"><br />
+                <label>Scheduled time</label>
+                <input type="text" id="eventTime"><br />
+                <label>Appointment length (minutes)</label>
+                <input type="number" id="eventDuration" placeholder="15"><br />
+
+            </td>
+        </tr>
+    </table>
+    <label>Event Type</label>
+    <select id="eventType">
+        <option value="0">Class</option>
+        <option selected="selected" value="1">Service</option>
+        <option value="2">Salaat</option>
+    </select>
+    <br />
+</div>
+<br />
+<br />
+<br />
+@using (Html.BeginForm("Create", "Event", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", id = "AddImageForm" }))
+{
+    <div>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input name="Image" type="file" />
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <select id="EventID" name="EventID">
+                        <option value="0">Select Event</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.ID">@item.Title - @item.DateTimeScheduled</option>
+                        }
+                    </select>
+                     <input id="Button1" type="submit" value="Save Image" />
+
+                </td>
+                <td>
+                    <span style="min-width:10px;float:left;">&nbsp;</span>
+                    <span class="blue-btn" style="float: left; height:20px; vertical-align:top">
+
+                        @Html.ActionLink("Save Image", "Create", "Event", new { @class = "blue-btn-link" })
+
+
+
+
+                    </span>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+}
+
+
+
+
+@*<div id="popupEventForm" class="modal hide" style="display: none;">
+    <div class="modal-header"><h3>Add new event</h3></div>
+    <div class="modal-body">
+        <form id="EventForm" class="well">
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="btnPopupCancel" data-dismiss="modal" class="btn">Cancel</button>
+        <button type="button" id="btnPopupSave" data-dismiss="modal" class="btn btn-primary">Save event</button>
+    </div>
+</div>*@
+
+@*<table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SomeImportantKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTimeScheduled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentLength)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusENUM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SomeImportantKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTimeScheduled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentLength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusENUM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+

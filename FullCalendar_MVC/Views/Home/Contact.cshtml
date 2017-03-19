@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script src="~/Scripts/jquery.isotope.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/wow.min.js"></script>*@
+@*<script src="~/Scripts/jquery.js"></script>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/expressive.annotations.validate.js"></script>
+
+<br />
+<br />
+<br />
+<br />
+
+
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div><br />
+<section style="padding-top:30px;padding-bottom:10px;" id="contact-info">
+    <div style="padding-bottom:10px" class="center">
+        <h2>How to Reach Us?</h2>
+        <p class="lead">@ViewBag.Message</p>
+    </div>
+    <div class="gmap-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 text-center">
+                    <div class="gmap">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.37594942811!2d-76.7768456846336!3d39.43823397949082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c816f9f04154cf%3A0x85977e65ff8176fa!2sIslamic+Center+of+Owings+Mills!5e0!3m2!1sen!2sus!4v1488682889493" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                    </div>
+                </div>
+                <div style="font-weight:bold; padding-top:60px; padding-left:0px; font-size:13pt;" class="col-sm-7 map-content">
+                    <ul class="row">
+                        <li class="col-sm-6">
+                            <address>
+                                <p>Islamic Center of Owings Mills</p>
+                                <p>
+                                    11436 Cronhill Dr, Unit 4A <br>
+                                    Owings Mills, MD 21117
+                                </p>
+                                <p>
+                                    Phone:<a href="tel:+1(443) 738-5553"> +1(443) 738-5553</a> <br>
+                                    Email Address:<a href="mailto:info@icommd.org"> info@icommd.org</a>
+                                </p>
+                                <div class="team">
+                                    <ul class="social_icons">
+                                        <li><a href="https://www.facebook.com/ICOMMD/"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="https://twitter.com/icom_md"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/in/icom-md-0a2068139/"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="https://plus.google.com/u/0/110477846453093093033"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+
+                            </address>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section  id="contact-page">
+    <div class="container">
+        <div style="padding-top:10px;padding-bottom:10px;" class="center">
+            <h2>Drop Your Message</h2>
+        </div>
+        <div style="background-color:#F1E872; border-radius:5px" class="row contact-wrap">
+    
+            <form class="contact-form"  role="form"  id="main-contact-form">
+                <div class="error">   @Html.ValidationSummary(false, "* You have the following errors: ", String.Empty)</div> 
+               <div hidden="hidden" class="status alert alert-success"></div>
+
+
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="form-group">
+                        <label>
+                            Name *
+                        </label>
+                        <input type="text" id="FullName"  name="FullName" class="form-control" required="required">
+                   </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="Email" name="Email" class="form-control" required="required">
+
+                                                                                                @*
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", @required = "required" })
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @required = "required" })
+            <input type="email" name="Email" class="form-control" required="required">
+
+                                                                                                *@
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="number" id="Phone" name="Phone" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label>Message *</label>
+                        <textarea name="Message" id="Message" class="form-control" rows="8"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="btnSendForm" id="btnSendForm" class="btn btn-primary btn-lg" >Send Message</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+
+        $(document).ready(function () {
+            $('#FullName').rules("add", {
+                required: true, messages: { required: "Full Name is required." }
+            });
+            $('#Email').rules("add", {
+                required: true, messages: { required: "Email Address is required." }
+            });
+
+            $('#Message').rules("add", {
+                required: true, messages: { required: "Message is required." }
+            });
+
+            $(".nav li").removeClass("active");//this will remove the active class from
+            $('#lContact').addClass('active');
+
+
+
+
+
+
+        });
+        $('#main-contact-form').on('submit',function (e) {
+                var datastring = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("/SendContact")',
+                    data: datastring,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('.validation-summary-errors').addClass('validation-summary-valid');
+                        $('.validation-summary-errors').removeClass('validation-summary-errors');
+                        $('.alert-success').show();
+                        $('.alert-success').html(data);
+                        $('#Message').val("");
+                        $('#Phone').val("");
+                        $('#Email').val("");
+                        $('#FullName').val("");
+                    }
+                }); e.preventDefault();
+            });
+</script>

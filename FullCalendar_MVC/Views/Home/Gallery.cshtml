@@ -1,0 +1,204 @@
+﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
+@{
+    ViewBag.Title = "Home";
+}
+@section scripts{
+    @*<script src="~/Scripts/jquery.js"></script>*@
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>  
+      <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <script src="~/Scripts/jquery.isotope.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".nav li").removeClass("active");//this will remove the active class from
+        $('#lGallery').addClass('active');
+      
+       $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+                   $('#image-zoom').attr("src", recipient);
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            //var modal = $(this)
+            //modal.find('.modal-title').text('New message to ' + recipient)
+            //modal.find('.modal-body input').val(recipient)
+        })
+
+        $.ajax({
+            type: "get",
+            url: '@Url.Action("/GetGallery")',
+            data: {},
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var Events = '';
+                for (var i = 0; i < data.length; i++) {
+
+                    Events = Events +'<div class="col-xs-12 col-sm-4 col-md-3"><div class="recent-work-wrap"><img class="img-responsive" src="GetThumbnailImage?imageID='+
+			data[i].ImageID+'" alt="" /><div class="overlay"><div class="recent-work-inner"><h3><a href="#">'+
+			data[i].Title + ' </a></h3><p>' + data[i].Description + '</p><a data-toggle="modal" data-target="#exampleModal" data-whatever="GetGalleryImage?imageID='
+            + data[i].ImageID + '" rel="prettyPhoto" class="preview" href="#"><i class="fa fa-eye"></i> View</a></div></div></div></div>';
+
+                }
+              //  $('#divGallery').empty();
+                $('#divGallery').html(Events);
+            }
+        });
+    });
+
+</script>
+
+
+}
+<br />
+<br />
+<br />
+<br />
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%; z-index:78">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div>
+<br />
+
+
+<section id="Gallery">
+    <div class="container">
+        <div class="center wow fadeInDown">
+            <h2  id="tips">Masjid Photo Gallery</h2>
+        
+        </div>
+        <div id="divGallery" class="row">
+            @*<div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item1.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title</a> </h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Home/GetGalleryImage?imageID=11" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    
+                         <img class="img-responsive" src="~/Content/images/portfolio/recent/item2.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title</a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item3.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title </a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item4.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title </a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item5.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title</a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item6.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title </a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item7.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title </a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item8.png" alt="">
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><a href="#">Event Title </a></h3>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
+                            <a class="preview" href="~/Content/images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</section>
+
+
+<div tabindex="-1" class="modal fade" id="exampleModal" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-label="Close" type="button" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+
+                <img id="image-zoom" style="width:550px" alt="dental" src="images/projectpix/ashongmanproject/big-DSCI0012.JPG">
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
+@{
+    ViewBag.Title = "Home";
+}
+@section scripts{
+    @*<script src="~/Scripts/jquery.js"></script>*@
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>  
+      <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <script src="~/Scripts/jquery.isotope.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".nav li").removeClass("active");//this will remove the active class from
+
+        $('#lServices').addClass('active');
+    });
+
+</script>
+
+
+}
+<br />
+<br />
+<br />
+<br />
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%; z-index:78">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div>
+<br />
+
+ 
+<section id="Services">
+    <div style="padding-top:70px" class="container">
+        <div class="center wow fadeInDown">
+            <h2>Services</h2> 
+            <h2 style="font-size:14pt;">
+                  لَمَسجِدٌ أُسِّسَ عَلَى التَّقوىٰ مِن أَوَّلِ يَومٍ أَحَقُّ أَن تَقومَ فيهِ  فيهِ رِجالٌ يُحِبّونَ أَن يَتَطَهَّروا  وَاللَّهُ يُحِبُّ المُطَّهِّرينَ ...<br />         <cite style="font-size:10pt">...A mosque founded on righteousness from the first day is more worthy for you to stand in. Within it are men who love to purify themselves; and Allah loves those who purify themselves. <br />-- Qur’an, Surah Al Tawba, 9:108</cite>
+            </h2>
+       </div>
+        <div class="row">
+            <div class="features">
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" onmouseout="this.src = '../Content/images/prayer.png';" onmouseover="this.src = '../Content/images/prayerHover.png';" src="~/Content/images/prayer.png">
+                        </div>
+                        <div class="media-body">
+                            <h2>
+                                Regular Prayers
+                            </h2>
+                            <h3 style="    font-size: 16px;
+    color: #787878;
+    font-weight: 400;
+    line-height: 24px;">ICOM offers five times a day prayer facility to our community. Promote culture of peace and love in the neighborhood.</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div class="feature-wrap">
+                        <i class="fa fa-book"></i>
+                        <h2>Education</h2>
+                        <h3>Promoting education about Islam and its true message of love and peace with spiritual development. Counselling for our youth and weekend learning programs.</h3>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+                    <div class="feature-wrap">
+                        <i class="fa fa-signal"></i>
+                        <h2>Community Services</h2>
+                        <h3>A place for community services where community can interact, learn, and grow together. We will arrange regular community gatherings including potlucks, eid milan, Aftar etc. to bring community get together and promote culture of help and serve.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+
+
+
+
+
+
+
