@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "View PDF File";
+}
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script src="~/Scripts/jquery.isotope.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/wow.min.js"></script>
+<script src="~/Scripts/jquery.js"></script>
+<br />
+<br />
+<br />
+<br />
+
+<style type="text/css">
+    #pdfbox {
+        width: 800px;
+        height: 600px;
+        border: 5px solid #ccc;
+    }
+</style>
+
+
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div>
+
+<section id="pdfviewer">
+    <div class="container">
+@using (Ajax.BeginForm("RenderPDF", "Home", new AjaxOptions { UpdateTargetId = "pdf" }))
+{
+    <table>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div id='pdf'>
+                    <object id='pdfbox' type="application/pdf" data="@Url.Action("ViewPDFFile", "Home", new { fileID = 1})">
+                        Click @Html.ActionLink("here", "ViewPDFFile", new { fileID = 1 }) to view the file.
+                    </object>                    </div>
+            </td>
+        </tr>
+    </table>
+                        }    </div>
+</section>
+<script>
+
+        $(document).ready(function () {
+            $(".nav li").removeClass("active");//this will remove the active class from
+            $('#lGallery').addClass('active');
+        });
+</script>

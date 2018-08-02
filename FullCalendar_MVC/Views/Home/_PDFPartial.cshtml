@@ -1,0 +1,16 @@
+﻿@{
+    int intFileID = Convert.ToInt32(ViewData["fileID"]);
+
+}
+
+<style type="text/css">
+    #pdfbox {
+        width: 600px;
+        height: 400px;
+        border: 5px solid #ccc;
+    }
+</style>
+
+<object id='pdfbox' type="application/pdf" data="@Url.Action("ViewPDFFile", "Home", new { fileID = intFileID})">
+    Click @Html.ActionLink("here", "ViewPDFFile",  new { fileID = intFileID })) to view the file.
+</object>    

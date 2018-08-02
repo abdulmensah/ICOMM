@@ -13,6 +13,10 @@
         <AssociationConnector Association="Diary.webpages_UsersInRoles" />
         <EntityTypeShape EntityType="Diary.AppointmentDiary" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Diary.ArtWorks" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Diary.Folder" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Diary.Salaat" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Diary.SalaatTypes" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Diary.Slides" Width="1.5" PointX="9.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

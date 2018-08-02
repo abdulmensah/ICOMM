@@ -1,9 +1,7 @@
 ﻿
+
 @{
-    Layout = null;
-}
-@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mange Event(s)";
 }
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
 <link href="~/Content/site.css" rel="stylesheet">
@@ -11,16 +9,16 @@
 
 <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
-<script src="~/Scripts/jquery-1.8.2.js"></script>
-<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/bootstrap-modal.js"></script>
 
 
 <link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
-<link href="~/Content/css/font-awesome.css" rel="stylesheet">
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
 <link href="~/Content/fullcalendar.css" rel="stylesheet">
-<script src="~/Scripts/fullcalendar.js"></script>
+<script src="~/Scripts/fullcalendar.min.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -29,7 +27,6 @@
         var CalLoading = true;
 
         $('.fc-event').remove();
-
 
         $('#btnInit').click(function () {
             $.ajax({
@@ -209,9 +206,6 @@
         });
     }
     function DisplayEventDetails(EventID) {
-    //    alert('You clicked on event id: ' + EventID.id
-    //+ "\nSpecial ID: " + EventID.someKey
-    //+ "\nAnd the title is: " + EventID.title);
 
 
         $.ajax({
@@ -263,41 +257,12 @@
     }
 
 
-    function GetEventInfo() {       //        userTy=$('#txtCompanyTypeID option:selected').val();
-        // alert(CompID);
-        $.ajax({
-            type: "get",
-            url: '@Url.Action("/ShowEvents")',
-            data: {},
-            datatype: "json",
-            traditional: true,
-            success: function (data) {
-                var Events = "<select id='EventID'>";
-                Events = Events + '<option value="0">--Select Event--</option>';
-                for (var i = 0; i < data.length; i++) {
-                    Events = Events + '<option value=' + data[i].ID + '>' + data[i].Title + '</option>';
-                }
-                Events = Events + '</select>';
-                $('#EventID').html(Events);
-            }
-        });
-    }
+
 </script>
 
-<div style="background-color:darkblue; font-size:13pt; color:white" class="social">
-    <div style="text-align:right" class="search">
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-   <div role="form">
-                <a style="font-size:20pt;display:inline; color:white" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Log off</a>
-            </div>
-        }
-    </div>
-
-</div>
 
 
-<h2>Index</h2>
+@*<h2>@ViewBag.Title</h2>*@
 
 <br />
 <br />
@@ -305,6 +270,7 @@
 <br />
 <br />
 <div class="container">
+    <h2 style="width:100%">@ViewBag.Title</h2>
 
 
     <div id='calendar' style="width:65%"></div>
@@ -343,126 +309,5 @@
 <br />
 <br />
 <br />
-@using (Html.BeginForm("Create", "Event", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", id = "AddImageForm" }))
-{
-    <div>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <input name="Image" type="file" />
-                        </div>
-                    </div>
-
-                </td>
-                <td>
-                    <select id="EventID" name="EventID">
-                        <option value="0">Select Event</option>
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.ID">@item.Title - @item.DateTimeScheduled</option>
-                        }
-                    </select>
-                     <input id="Button1" type="submit" value="Save Image" />
-
-                </td>
-                <td>
-                    <span style="min-width:10px;float:left;">&nbsp;</span>
-                    <span class="blue-btn" style="float: left; height:20px; vertical-align:top">
-
-                        @Html.ActionLink("Save Image", "Create", "Event", new { @class = "blue-btn-link" })
-
-
-
-
-                    </span>
-
-                </td>
-            </tr>
-        </table>
-
-    </div>
-}
-
-
-
-
-@*<div id="popupEventForm" class="modal hide" style="display: none;">
-    <div class="modal-header"><h3>Add new event</h3></div>
-    <div class="modal-body">
-        <form id="EventForm" class="well">
-
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" id="btnPopupCancel" data-dismiss="modal" class="btn">Cancel</button>
-        <button type="button" id="btnPopupSave" data-dismiss="modal" class="btn btn-primary">Save event</button>
-    </div>
-</div>*@
-
-@*<table>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SomeImportantKey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTimeScheduled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppointmentLength)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusENUM)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventType)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SomeImportantKey)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTimeScheduled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppointmentLength)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusENUM)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventType)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-            </td>
-        </tr>
-    }
-
-    </table>*@
 
 

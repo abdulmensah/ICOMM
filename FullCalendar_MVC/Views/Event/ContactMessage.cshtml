@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "View Contact Message(s)";
+}
+<link href="~/Content/site.css" rel="stylesheet">
+<link href="~/Content/bootstrap.css" rel="stylesheet">
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
+
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-modal.js"></script>
+
+
+<link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
+<link href="~/Content/css/font-awesome.css" rel="stylesheet">
+<link href="~/Content/css/main.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function () {
+
+
+        GetContactInfo();
+
+    });
+
+    function ReplyMessage() {
+
+        var dataRow = {
+            'Email': $('#MessageID').val(),
+            'Body': $('#MessageDescription').val(),
+            'FullName': $('#MessageTitle').val()
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "/Event/SendReply",
+            data: dataRow,
+            success: function (response) {
+                if (response == 'True') {
+                    alert('Message replied successfully!');
+                    $("#popupEventForm").dialog("close")
+                }
+                else {
+                    alert('Error, message not sent!');
+                }
+            }
+        });
+    }
+
+    //function ReplyMessage() {
+
+    //}
+
+    function ReplyDetails(MessageID) {
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/Event/GetMessage",
+            data: { Id: MessageID },
+            dataType: "json",
+            traditional: true,
+            success: function (data) {
+                EventRawData = JSON.stringify(data);
+                if (EventRawData.length > 0) {
+                    EventData = JSON.parse(EventRawData);
+
+                    $('#MessageID').val(EventData.ID);
+                    $('#MessageTitle').val(EventData.Title);
+                    $('#MessageDescription').val('\n\n\n\n\n\n-------------------------------------------\n *** Original Message *** \n' + EventData.Body);
+
+                    $('#popupEventForm').dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: 600,
+                        modal: true,
+                        buttons: {
+                            "Send Reply": ReplyMessage,
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        close: function () {
+                            $(this).dialog("close")
+                        }
+                    });
+                    $('#MessageDescription').focus();
+                    $('#MessageDescription').selectRange(0);
+                };
+
+            }
+        });
+    }
+
+    $.fn.selectRange = function (start, end) {
+        if (end === undefined) {
+            end = start;
+        }
+        return this.each(function () {
+            if ('selectionStart' in this) {
+                this.selectionStart = start;
+                this.selectionEnd = end;
+            } else if (this.setSelectionRange) {
+                this.setSelectionRange(start, end);
+            } else if (this.createTextRange) {
+                var range = this.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.select();
+            }
+        });
+    };
+
+    function GetContactInfo()
+    {
+        // alert(CompID);
+        $.ajax({
+            type: "get",
+            url: '@Url.Action("/GetContacts")',
+            data: {},
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var PanelID = 0;
+                var Accords = "";
+               
+                for (var i = 0; i < data.length; i++) {
+                    PanelID = PanelID + 1;
+                    Accords = Accords + '<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse' + PanelID + '">' +
+                        data[i].FullName + ' - '+ data[i].Date+ '</a></div>' +'<div id="collapse' + PanelID + '" class="panel-collapse collapse in"><div class="panel-body">' +
+			'<table cellpadding="0" cellspacing="0" style="width: 95%;"><tr><td><a href="mailto:'
+			+ data[i].Email + '">' + data[i].FullName + ' (' + data[i].Email + ')</a></td></tr><tr><td>' + data[i].Message + '</td></tr><tr><td><input type="button" ' +
+			'style="text-align:center; width:100px" id="btnReply" value="Reply" class="greenbutton" onclick="ReplyDetails(' + data[i].ID +')"/></td></tr></table> </div></div></div>';
+                }
+                $('#accordion').append(Accords);
+                $("#accordion").accordion();
+            }
+            });
+    }
+</script>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+   <div class="panel-group" id="accordion" style="height:300px;overflow-y:scroll;">
+
+    </div>
+
+
+</div>
+<div id="popupEventForm" title="Reply Message" class="modal hide" style="display: none;width:600px">
+  <div style="width:95%">
+      <input type="hidden" id="MessageID">
+      <label id="MessasgeTitle">Sent By:</label>
+      <input type="text" id="MessageTitle" disabled="disabled" style="width:500px; border:0px none transparent; background-color:transparent;" placeholder="Title here"><br />
+      <label>Message Description: </label>
+      <textarea id="MessageDescription" class="form-control" style="width:500px" placeholder="Reply Message here" rows="8"></textarea><br />
+      <br />
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

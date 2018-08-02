@@ -23,7 +23,7 @@ namespace FullCalendar_MVC
         public Nullable<int> ID { get; set; }
 
         public Nullable<System.DateTime> DateAdded { get; set; }
-          [NotMapped]
+        [NotMapped]
         public AppointmentDiary ImageEvent
         {
             get
@@ -31,5 +31,5 @@ namespace FullCalendar_MVC
                 return db.AppointmentDiary.Find(ID);
             }
         }
-  }
+    }
 }

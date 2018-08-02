@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "Set Salaat Time(s)";
+}
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+
+<link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
+<link href="~/Content/css/font-awesome.css" rel="stylesheet">
+<link href="~/Content/bootstrap.css" rel="stylesheet">
+<link href="~/Content/css/main.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function () {
+
+        $.getJSON('http://muslimsalat.com/owings-mills/daily.json?key=API_KEY&jsoncallback=?', function (times) {
+            $('#tdmsFajr').html(times.items[0].fajr.toUpperCase());
+            $('#tdmsDhuhr').html(times.items[0].dhuhr.toUpperCase());
+            $('#tdmsAsr').html(times.items[0].asr.toUpperCase());
+            $('#tdmsMaghrib').html(times.items[0].maghrib.toUpperCase());
+            $('#tdmsIsha').html(times.items[0].isha.toUpperCase());
+        });
+
+        $.getJSON('@Url.Action("/GetSalaat")', function (times) {
+            //     alert(times.Dhuhr);
+
+            $('#txtFajr').val(times.Fajr.toUpperCase());
+            $('#txtDhuhr').val(times.Dhuhr.toUpperCase());
+            $('#txtAsr').val(times.Asr.toUpperCase());
+            $('#txtMaghrib').val(times.Maghrib.toUpperCase());
+            $('#txtIsha').val(times.Isha.toUpperCase());
+            $('#txtJumma1').val(times.Jumma1.toUpperCase());
+            $('#txtKhutbah1').val(times.Khutbah1.toUpperCase());
+            $('#tdJIqamah1').html(times.Jumma1.toUpperCase());
+            $('#tdKhutbah1').html(times.Khutbah1.toUpperCase());
+            $('#txtJumma2').val(times.Jumma2.toUpperCase());
+            $('#txtKhutbah2').val(times.Khutbah2.toUpperCase());
+            $('#tdJIqamah2').html(times.Jumma2.toUpperCase());
+            $('#tdKhutbah2').html(times.Khutbah2.toUpperCase());
+
+
+        });
+
+    });
+
+    function CheckTime(e)
+    {
+        var strTime=$(e).val();
+        var d = new Date("July 21, 1983 "+ strTime);
+        if(isNaN(d.getHours()))
+        {
+            alert("You can only enter Iqamah Time in 12 hour format (00:01 upto 12:59)! ");
+            $(e).val("");
+        }else
+        {
+
+            var strTimes = $(e).val().split(":")
+            if (strTimes.length>0)
+            {
+                if (parseInt(strTimes[1].trim()) > 59)
+                {
+                    alert("You can only enter Iqamah Time in 12 hour format (00:01 upto 12:59)! ");
+                    $(e).val("");
+                }
+                else
+                {
+                  //  SetIncDateTime(Idx);
+                    //  $("#txtIncDateTime" + Idx).val($("#txtIncDate" + Idx).val() + ' ' + $(strTimeId).val() + ' ' + $(strAP).text());
+
+                }
+            }
+        }
+
+    }
+
+ 
+
+    function ClearPopupFormValues() {
+        $('#eventID').val("0");
+        $('#eventTitle').val("");
+        $('#eventDescription').val("");
+        $('#eventDateTime').val("");
+        $('#eventDuration').val("");
+        $('#eventDuration').val("");
+        $("#eventType option[value='1']").prop('selected', true);
+    }
+
+
+</script>
+
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm("SaveSalaat", "Event", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", id = "AddImageForm" }))
+{
+    <div class="container">
+        <div class="media-body">
+            <div style="width:500px; height:400px" class="panel embeded-times panel-primary">
+                <div style="font-size:12pt; padding: 3px 15px; color:white; background-color:#1EBB11; border-top-left-radius:4px; border-top-right-radius:4px;">
+                    <b>Set New Salaat Times</b> <span style="font-size:9pt"><span class="text-muted">Athan times by</span> <a style="color: white" href="http://MuslimSalat.com">MuslimSalat.com</a> </span>
+                </div>
+
+                <div class="panel-body">
+                    <table>
+                        <tr><td style="font-weight:bold">Salaat</td><td style="font-weight:bold; width:150px;">Athan Time</td><td style="font-weight:bold">Iqamah Time</td></tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Fajr" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+                                
+
+                            </td>
+                            <td id="tdmsFajr" style="padding-left:20px"></td>
+                            <td id="tdFajr">
+                                <input type="text" id="txtFajr" name="Fajr" onchange="CheckTime(this)" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Dhuhr"  disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;"  />
+                                
+                                
+                            </td>
+                            <td id="tdmsDhuhr" style="padding-left:20px"></td>
+                            <td id="tdDhuhr">
+                                <input type="text" id="txtDhuhr" name="Dhuhr" onchange="CheckTime(this)" value="" />
+</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Asr" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;"  />
+                                
+                                
+                            </td>
+                            <td id="tdmsAsr" style="padding-left:20px"></td>
+                            <td id="tdAsr">
+                                <input type="text" id="txtAsr" name="Asr" onchange="CheckTime(this)" value="" />
+</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Maghrib" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+                                
+                                
+                            </td>
+                            <td id="tdmsMaghrib" style="padding-left:20px"></td>
+                            <td id="tdMaghrib">
+                                <input type="text" id="txtMaghrib" name="Maghrib" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Isha" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+                                
+                                
+                            </td>
+                            <td id="tdmsIsha" style="padding-left:20px"></td>
+                            <td id="tdIsha">
+                                <input type="text" id="txtIsha" name="Isha" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <table>
+                        <tr><td style="font-weight:bold">Jummah</td><td style="font-weight:bold; width:150px;">Current Time</td><td style="font-weight:bold">New Time</td></tr>
+
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Khutbah 1" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+
+                            </td>
+                            <td id="tdKhutbah1" style="padding-left:20px"></td>
+                            <td id="tdMaghrib">
+                                <input type="text" id="txtKhutbah1" name="Khutbah1" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Iqamah 1" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+
+                            </td>
+                            <td id="tdJIqamah1" style="padding-left:20px"></td>
+                            <td id="tdIsha">
+                                <input type="text" id="txtJumma1" name="Jumma1" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Khutbah 2" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+
+                            </td>
+                            <td id="tdKhutbah2" style="padding-left:20px"></td>
+                            <td id="tdMaghrib">
+                                <input type="text" id="txtKhutbah2" name="Khutbah2" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                <input type="text" id="SalaatName" name="SalaatName" value="Iqamah 2" disabled="disabled" style="width:100px; border:0px none transparent; background-color:transparent;" />
+
+                            </td>
+                            <td id="tdJIqamah2" style="padding-left:20px"></td>
+                            <td id="tdIsha">
+                                <input type="text" id="txtJumma2" name="Jumma2" onchange="CheckTime(this)" value="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold"></td>
+                            <td style="padding-left:20px"></td>
+                            <td>
+                                <input type="submit" style="text-align:center; width:100px" id="btnSave" value="Save" class="greenbutton" />
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+
+
+
+
+
+
+

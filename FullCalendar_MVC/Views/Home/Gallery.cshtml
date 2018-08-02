@@ -1,23 +1,19 @@
-﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
-@{
-    ViewBag.Title = "Home";
-}
-@section scripts{
-    @*<script src="~/Scripts/jquery.js"></script>*@
+﻿@ViewBag.Title = "Gallery";
 
-<script src="~/Scripts/jquery-1.8.2.js"></script>  
-      <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.prettyPhoto.js"></script>
     <script src="~/Scripts/jquery.isotope.min.js"></script>
     <script src="~/Scripts/main.js"></script>
     <script src="~/Scripts/wow.min.js"></script>
 
-<script>
+    <script>
     $(document).ready(function () {
 
         $(".nav li").removeClass("active");//this will remove the active class from
         $('#lGallery').addClass('active');
-      
+
        $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -51,7 +47,7 @@
         });
     });
 
-</script>
+    </script>
 
 
 }
@@ -69,107 +65,11 @@
 <section id="Gallery">
     <div class="container">
         <div class="center wow fadeInDown">
-            <h2  id="tips">Masjid Photo Gallery</h2>
-        
+            <h2 id="tips">Masjid Photo Gallery</h2>
+
         </div>
         <div id="divGallery" class="row">
-            @*<div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item1.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title</a> </h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Home/GetGalleryImage?imageID=11" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    
-                         <img class="img-responsive" src="~/Content/images/portfolio/recent/item2.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title</a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item3.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title </a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item4.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title </a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item5.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title</a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item6.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title </a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item7.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title </a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="~/Content/images/portfolio/recent/item8.png" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">Event Title </a></h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                            <a class="preview" href="~/Content/images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+           
         </div>
     </div>
 </section>
@@ -195,7 +95,6 @@
         </div>
     </div>
 </div>
-
 
 
 

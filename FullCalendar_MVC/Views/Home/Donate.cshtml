@@ -1,16 +1,16 @@
-﻿@*@model IEnumerable<FullCalendar_MVC.Models.GalleryEvent>*@
+﻿
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Donations";
 }
 @section scripts{
-    @*<script src="~/Scripts/jquery.js"></script>*@
 
-<script src="~/Scripts/jquery-1.8.2.js"></script>  
-      <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
-    <script src="~/Scripts/jquery.isotope.min.js"></script>
-    <script src="~/Scripts/main.js"></script>
-    <script src="~/Scripts/wow.min.js"></script>
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script src="~/Scripts/jquery.isotope.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/wow.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -34,7 +34,7 @@
 </div>
 <br />
 
-<section style="background-image:url(../../Content/images/bg-blue-sky.jpg); background-size:cover; padding-top:10px; width:100%; color:#fff" id="Donations">
+<section style="background-image:url(../../Content/images/bg-blue-sky.jpg); background-size:cover; padding-top:10px; width:100%; color:#fff" id="about-us">
     <div class="container">
         <div style="padding-top:150px; width:100%" class="center wow fadeInDown">
             <h2 style="color:#fff">Donations</h2>
@@ -43,24 +43,26 @@
                 <span style="font-size:10pt">Those who (in charity) spend of their goods by night and by day, in secret and in public, have their reward with their Lord: on them shall be no fear, nor shall they grieve.- <strong>Quran</strong> 2:274</span>
             
             </div>
-            <cite style="font-size:12pt;padding-top:150px">
+            <div style="font-size:12pt;padding-top:1px">
                 Thank you for considering ICOM MD for your donations. Right place, right contribution.
 
-                Please donate generously to contribute to your Community Center to serve community of Allah.
+                Please donate generously to contribute to your Community Center to serve community of Allah. You may give cash or check donations directly to <a href="~/Home/Contact">ICOM</a>.
 
-                Your check out is safe and secure transaction secured by either PayPal or GoFundMe. Choose your choice below:
+                For online preference, your check out transaction is safe and secured by PayPal below:
 
-            </cite>
+            </div>
 
         </div>
-        <div class="partners">
-            <ul>
+        <div  style="width:228px;  margin-left:auto;margin-right:auto;" class="partners">
+            <a  href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick">
+            <img style="width:228px; height:80px" class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="~/Content/images/paypal_button-2.png"></a>
+    @*<ul>
                 <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
                 <li> <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="~/Content/images/paypal_button-2.png"></a></li>
                 <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
                 <li> <a href="https://www.gofundme.com/ICOMMD"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="~/Content/images/gfmlogoem2.png"></a></li>
                 <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="~/Images/spacer.gif"></a></li>
-            </ul>
+            </ul>*@
         </div>
     </div>
 </section>

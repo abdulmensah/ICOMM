@@ -61,7 +61,7 @@ namespace FullCalendar_MVC.Controllers
 
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                          1,
-                         Email,
+                         user.FirstName+' '+user.LastName,
                          DateTime.Now,
                          DateTime.Now.AddMinutes(15),
                          false,

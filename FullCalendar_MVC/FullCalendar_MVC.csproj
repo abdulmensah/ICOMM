@@ -184,6 +184,9 @@
       <DependentUpon>Diary.edmx</DependentUpon>
     </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Folder.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,7 +198,16 @@
     <Compile Include="Models\ICustomPrincipal.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Salaat.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalaatTypes.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Shared.cs" />
+    <Compile Include="Slides.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>Diary.tt</DependentUpon>
     </Compile>
@@ -388,15 +400,16 @@
     <Content Include="Content\images\service\image_bg.png" />
     <Content Include="Content\images\service\logo.png" />
     <Content Include="Content\images\service\phone.png" />
-    <Content Include="Content\images\slider\bg.jpg" />
     <Content Include="Content\images\slider\bg1.jpg" />
     <Content Include="Content\images\slider\bg2.jpg" />
     <Content Include="Content\images\slider\bg3.jpg" />
-    <Content Include="Content\images\slider\img.png" />
+    <Content Include="Content\images\slider\bg4.jpg" />
+    <Content Include="Content\images\slider\bg5.jpg" />
     <Content Include="Content\images\slider\img1.png" />
     <Content Include="Content\images\slider\img2.png" />
     <Content Include="Content\images\slider\img3.png" />
     <Content Include="Content\images\slider\img4.png" />
+    <Content Include="Content\images\slider\img5.png" />
     <Content Include="Content\images\slider_one.jpg" />
     <Content Include="Content\Money.png" />
     <Content Include="Content\ok.png" />
@@ -521,6 +534,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\suncalc.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -560,6 +574,11 @@
     <Content Include="Views\Home\Donate.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Event\AddGallery.cshtml" />
+    <Content Include="Views\Event\SetSalaat.cshtml" />
+    <Content Include="Views\Event\ContactMessage.cshtml" />
+    <Content Include="Views\Home\ViewPDF.cshtml" />
+    <Content Include="Views\Event\AddSlides.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

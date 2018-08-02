@@ -2,15 +2,13 @@
     ViewBag.Title = "Contact";
 }
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-@*<script src="~/Scripts/jquery.prettyPhoto.js"></script>
-<script src="~/Scripts/jquery.isotope.min.js"></script>
-<script src="~/Scripts/main.js"></script>
-<script src="~/Scripts/wow.min.js"></script>*@
-@*<script src="~/Scripts/jquery.js"></script>*@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/expressive.annotations.validate.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/wow.min.js"></script>
+@*<script src="~/Scripts/main.js"></script>*@
+
 
 <br />
 <br />
@@ -35,9 +33,9 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.37594942811!2d-76.7768456846336!3d39.43823397949082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c816f9f04154cf%3A0x85977e65ff8176fa!2sIslamic+Center+of+Owings+Mills!5e0!3m2!1sen!2sus!4v1488682889493" width="600" height="450" frameborder="0" style="border:0"></iframe>
                     </div>
                 </div>
-                <div style="font-weight:bold; padding-top:60px; padding-left:0px; font-size:13pt;" class="col-sm-7 map-content">
-                    <ul class="row">
-                        <li class="col-sm-6">
+                <div style="list-style: none;font-weight:700; padding-top:30px; padding-left:50px; font-size:12pt;" class="col-sm-5 text-center">
+                    <ul style="list-style: none;width:95%; padding-top:0px; padding-left:10px; text-align:left" class="row">
+                        <li style="width:95%;" class="col-sm-6">
                             <address>
                                 <p>Islamic Center of Owings Mills</p>
                                 <p>
@@ -48,7 +46,10 @@
                                     Phone:<a href="tel:+1(443) 738-5553"> +1(443) 738-5553</a> <br>
                                     Email Address:<a href="mailto:info@icommd.org"> info@icommd.org</a>
                                 </p>
-                                <div class="team">
+                                <p>
+                                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdOPqFCBQNUANCupB9ZGhZnl4zadxII-WMIj8mky_SaWSBKhg/viewform?c=0&w=1">Click Here to Volunteer</a>
+                                </p>
+                                <div style="padding-top:0px; padding-left:0px;" class="team">
                                     <ul class="social_icons">
                                         <li><a href="https://www.facebook.com/ICOMMD/"><i class="fa fa-facebook"></i></a></li>
                                         <li><a href="https://twitter.com/icom_md"><i class="fa fa-twitter"></i></a></li>
@@ -61,100 +62,81 @@
                         </li>
                     </ul>
                 </div>
+                <div style="background-color:#F1E872; border-radius:5px;font-weight:bold; padding-top:0px; padding-left:0px; font-size:13pt;" class="col-sm-5">
+                    <form style="padding-left:50px; font-size:13pt;" class="contact-form" role="form" id="main-contact-form">
+                        <p style="text-align:center">Drop Your Message</p>
+                        @*<div  style="font-size:9pt; color:red" class="error">  </div>*@
+                        <div style="font-size:9pt; color:red" class="error" hidden="hidden" id="ErrorMsg" ></div>
+
+
+                        <div style="width:90%; font-size:10pt">
+                            <div class="form-group">
+                                <input type="text" id="FullName" name="FullName" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                @*<label>Email *</label>*@
+                                <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" >
+
+                            </div>
+                            <div class="form-group">
+                                <textarea name="Message" id="Message" class="form-control" placeholder="Message" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="btnSendForm" id="btnSendForm" class="btn btn-primary btn-lg">Send Message</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                
             </div>
-        </div>
-    </div>
-</section>
-<section  id="contact-page">
-    <div class="container">
-        <div style="padding-top:10px;padding-bottom:10px;" class="center">
-            <h2>Drop Your Message</h2>
-        </div>
-        <div style="background-color:#F1E872; border-radius:5px" class="row contact-wrap">
-    
-            <form class="contact-form"  role="form"  id="main-contact-form">
-                <div class="error">   @Html.ValidationSummary(false, "* You have the following errors: ", String.Empty)</div> 
-               <div hidden="hidden" class="status alert alert-success"></div>
-
-
-                <div class="col-sm-5 col-sm-offset-1">
-                    <div class="form-group">
-                        <label>
-                            Name *
-                        </label>
-                        <input type="text" id="FullName"  name="FullName" class="form-control" required="required">
-                   </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" id="Email" name="Email" class="form-control" required="required">
-
-                                                                                                @*
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", @required = "required" })
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @required = "required" })
-            <input type="email" name="Email" class="form-control" required="required">
-
-                                                                                                *@
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="number" id="Phone" name="Phone" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <label>Message *</label>
-                        <textarea name="Message" id="Message" class="form-control" rows="8"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="btnSendForm" id="btnSendForm" class="btn btn-primary btn-lg" >Send Message</button>
-                    </div>
-                </div>
-
-            </form>
         </div>
     </div>
 </section>
 <script>
 
         $(document).ready(function () {
-            $('#FullName').rules("add", {
-                required: true, messages: { required: "Full Name is required." }
-            });
-            $('#Email').rules("add", {
-                required: true, messages: { required: "Email Address is required." }
-            });
-
-            $('#Message').rules("add", {
-                required: true, messages: { required: "Message is required." }
-            });
-
             $(".nav li").removeClass("active");//this will remove the active class from
             $('#lContact').addClass('active');
 
 
 
-
-
-
         });
-        $('#main-contact-form').on('submit',function (e) {
-                var datastring = $(this).serialize();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("/SendContact")',
-                    data: datastring,
-                    dataType: 'json',
-                    success: function (data) {
-                        $('.validation-summary-errors').addClass('validation-summary-valid');
-                        $('.validation-summary-errors').removeClass('validation-summary-errors');
-                        $('.alert-success').show();
-                        $('.alert-success').html(data);
+            $('#main-contact-form').validate({
+                rules: {
+                    // simple rule, converted to {required:true}
+                    FullName: "required",
+                    Message: "required",
+                    // compound rule
+                    Email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    FullName: "Full Name is required.",
+                    Message: "Email Address is required.",
+                    Email: {
+                        required: "Email Address is required.",
+                        email: "Email Address format: name@domain.com"
+                    }
+                },
+                errorLabelContainer: "#ErrorMsg",
+                wrapper: "li",
+                
+                submitHandler: function (e) {
+
+                    var datastring = $(e).serialize();
+                    $.post('@Url.Action("/SendContact")', datastring, function (data) {
+                       alert(data);
                         $('#Message').val("");
                         $('#Phone').val("");
                         $('#Email').val("");
                         $('#FullName').val("");
-                    }
-                }); e.preventDefault();
+                    }, 'json');
+
+                   
+                }
             });
+
 </script>

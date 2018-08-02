@@ -24,7 +24,7 @@ namespace FullCalendar_MVC
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public DbSet<ContactInfo> ContactInfo { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
@@ -32,5 +32,9 @@ namespace FullCalendar_MVC
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
         public DbSet<AppointmentDiary> AppointmentDiary { get; set; }
         public DbSet<ArtWorks> ArtWorks { get; set; }
+        public DbSet<Folder> Folder { get; set; }
+        public DbSet<Salaat> Salaat { get; set; }
+        public DbSet<SalaatTypes> SalaatTypes { get; set; }
+        public DbSet<Slides> Slides { get; set; }
     }
 }

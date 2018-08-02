@@ -17,7 +17,7 @@
     <link href="~/Content/css/main.css" rel="stylesheet">
     <link href="~/Content/css/responsive.css" rel="stylesheet">
     @Scripts.Render("~/bundles/modernizr")
-<script>
+    <script>
     //function RunLink(url) {
     //    idx = url.indexOf("#")
     //    var hash = idx != -1 ? url.substring(idx + 1) : "";
@@ -45,12 +45,12 @@
     //    }
     //}
 
-</script>
+    </script>
     <link rel="shortcut icon" href="~/Content/images/ico/favicon.ico">
     @*<link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="~/Content/images/ico/apple-touch-icon-57-precomposed.png">*@
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="~/Content/images/ico/apple-touch-icon-57-precomposed.png">*@
 
 </head>
 <body class="homepage">
@@ -60,42 +60,48 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-xs-4">
-                        <div class="top-number"><p><a style="font-size:15pt; font-weight:bold" href="tel:+1(443) 738-5553"><i class="fa fa-phone-square"></i> +1(443) 738-5553 </a>
-                                                                                             
-</p></div>
-                    </div>
-  <div class="col-sm-6 col-xs-8">
-        <div class="donate">
-            <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick">
-                <img src="~/Content/images/PayPal.png" />
-            </a>
-            <img src="~/Images/spacer.gif" style="width:8px;height:1px" />
-            <a href="https://www.gofundme.com/ICOMMD">
-                <img src="~/Content/images/goFundMe.png" />
-            </a>
-        </div>
-        <div class="social">
-           <ul class="social-share">
-                <li><a href="https://www.facebook.com/ICOMMD/"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/icom_md"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/icom-md-0a2068139/"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="https://plus.google.com/u/0/110477846453093093033"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="~/Event"><i class="fa fa-lock"></i></a></li>
-            </ul>
-            <div class="search">
-                @using (Html.BeginForm("Search", "Home", FormMethod.Get))
-                {
-                    <div role="form">
-                        <input type="text" name="SearchString" class="search-form" autocomplete="off" placeholder="Search">
-                        <i class="fa fa-search"></i>
+                        <div class="top-number">
+                            <p>
+                                <a style="font-size:15pt; font-weight:bold" href="tel:+1(443) 738-5553"><i class="fa fa-phone-square"></i> +1(443) 738-5553 </a>
 
+                            </p>
+                        </div>
                     </div>
-                }
-            </div>
+                    <div style="right:0px; float:right;"  class="col-sm-6 col-xs-8">
+                        @*<div style="left:0px; float:left;"  class="donate">
+                            <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick">
+                                <img src="~/Content/images/PayPal.png" />
+                            </a>
+                            <img src="~/Images/spacer.gif" style="width:8px;height:1px" />
+                            <a href="https://www.gofundme.com/ICOMMD">
+                                <img src="~/Content/images/goFundMe.png" />
+                            </a>
+                        </div>*@
+                        <div style="right:0px; float:right;"  class="social">
+                            <a style="height:23px;line-height: 25px;text-align: center;display: inline-block; vertical-align:top" href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=9VLAR7ZQYP9NC&cmd=_s-xclick">
+                                <img style="height:23px;" src="~/Content/images/PayPal.png" />
+                            </a>
+                            <ul class="social-share">
+                                <li><a href="https://www.facebook.com/ICOMMD/"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/icom_md"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/icom-md-0a2068139/"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://plus.google.com/u/0/110477846453093093033"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="~/Event"><i class="fa fa-lock"></i></a></li>
+                            </ul>
+                            <div class="search">
+                                @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                                {
+                                    <div role="form">
+                                        <input type="text" name="SearchString" class="search-form" autocomplete="off" placeholder="Search">
+                                        <i class="fa fa-search"></i>
 
-        </div>
-    </div>
-</div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -113,34 +119,22 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li id="lHome"><a href="~/Home/Index">Home</a>|</li>
-                        <li id="lAbout" ><a href="~/Home/About">About Us</a>|</li>
+                        <li id="lAbout"><a href="~/Home/About">About Us</a>|</li>
                         <li id="lServices"><a href="~/Home/Services">Services</a>|</li>
                         <li id="lContact"><a href="~/Home/Contact">Contact Us</a>|</li>
-                        <li id="lFAQ" ><a href="~/Home/FAQ">FAQ</a>|</li>
+                        <li id="lFAQ"><a href="~/Home/FAQ">FAQ</a>|</li>
                         <li id="lDonate"><a href="~/Home/Donate">Donate</a>|</li>
                         <li id="lGallery"><a href="~/Home/Gallery">Gallery</a></li>
-                                                                        @*
-                        <li id="lServices" style="cursor: pointer;" onclick="RunLink('Index#Services')"><a onclick="RunLink('Index#Services')" >Services</a>|</li>
-         <li id="lDonate" style="cursor: pointer;" onclick="RunLink('Index#Donations')"><a onclick="RunLink('Index#Donations')">Donate</a>|</li>
-        <li id="lGallery" style="cursor: pointer;" onclick="RunLink('Index#Gallery')"><a onclick="RunLink('Index#Gallery')">Gallery</a></li>
-             <li><a href="~/Account/Login"><span class="fa fa-lock" aria-hidden="true"></span> Login</a></li>
-            <li class="dropdown">      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Drop Down<i class="fa fa-angle-down"></i></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#">One</a></li>
-                      <li><a href="#">One</a></li>
-                      <li><a href="#">One</a></li>
-                      <li><a href="#">One</a></li>
-                  </ul>
-              </li>
-              <li><a href="blog.html">Blog</a>|</li>*@
+                        
+
                     </ul>
                 </div>
             </div>
         </nav>
         @*<div style="position: absolute; right: 0px;">
-                                  <li id="lContact"  onclick="return RunLink('Contact')" ><a href="#" onclick="RunLink('Contact')">Contact Us</a>|</li>
-          <script type="text/javascript" src="http://www.muslimpro.com/muslimprowidget.js?cityid=4364727&language=en&width=350&timeformat=24&headerbackgroundcolor=0A3BA2&headertextcolor=ffffff&textcolor=000000&rowbackgroundcolor1=eeeeee&rowbackgroundcolor2=cccccc" async></script>
-        </div>*@
+                                      <li id="lContact"  onclick="return RunLink('Contact')" ><a href="#" onclick="RunLink('Contact')">Contact Us</a>|</li>
+              <script type="text/javascript" src="http://www.muslimpro.com/muslimprowidget.js?cityid=4364727&language=en&width=350&timeformat=24&headerbackgroundcolor=0A3BA2&headertextcolor=ffffff&textcolor=000000&rowbackgroundcolor1=eeeeee&rowbackgroundcolor2=cccccc" async></script>
+            </div>*@
     </header>
 
 
@@ -181,7 +175,7 @@
                             <h2>Have a question, a concern or a suggestion about ICOM or Islam?</h2>
                             <p>
                                 It's Your Place, Your Opportunity!! Submit all questions, concerns or suggestions to us by clicking
-                                <br /> <a href="~/Home/Contact">Contact Us</a> of simply calling us at +1(443) 738-5553.
+                                <br /> <a href="~/Home/Contact">Contact Us</a> or simply calling us at +1(443) 738-5553.
                             </p>
                         </div>
                     </div>

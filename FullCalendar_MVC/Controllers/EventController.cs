@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,8 +19,135 @@ namespace FullCalendar_MVC.Controllers
 
         public ActionResult Index()
         {
-            return View(db.AppointmentDiary.ToList());
+            return View();
             //return View(db.AppointmentDiary.ToList());
+        }
+        public ActionResult ContactMessage()
+        {
+            return View();
+
+        }
+        public ActionResult AddGallery()
+        {
+            return View();
+
+        }
+
+
+        public ActionResult SetSalaat()
+        {
+            return View();
+
+        }
+        public JsonResult GetContacts()
+        {
+            var Contacts = db.ContactInfo.OrderByDescending(e=>e.DateSent).ToList();
+            var messgaes = from e in Contacts select new { ID = e.ContactID, Date = e.DateSent.ToString(), Message = e.Message, Email = e.Email, FullName = e.FullName };
+            return Json(messgaes.ToList(), JsonRequestBehavior.AllowGet);
+            //return View(db.AppointmentDiary.ToList());
+        }
+        public JsonResult GetMessage(int Id)
+        {
+            var Message = db.ContactInfo.Find(Id);
+            if (Message == null)
+            {
+                return new JsonResult();
+            }
+
+            return Json(new {ID=Message.Email, Title= Message.FullName +" - "+Message.DateSent.ToString(), Body= Message.Message }, JsonRequestBehavior.AllowGet);
+        }
+        //public JsonResult SendReply(string Email, string Body, string FullName)
+        //{
+        //    var SentInfo = FullName.Split('-');
+        //    MailMessage message = new MailMessage();
+        //    message.From = new MailAddress("info@icommd.org");
+
+        //    message.To.Add(new MailAddress(Email, SentInfo[0]));
+
+        //    message.Subject = "Reply to Message Sent on" + SentInfo[1];
+        //    message.Body = Body;
+
+        //    SmtpClient client = new SmtpClient();
+        //    client.Send(message);
+
+        //    return Json(new {ID=Message.Email, Title= Message.FullName +" - "+Message.DateSent.ToString(), Body= Message.Message }, JsonRequestBehavior.AllowGet);
+        //}
+        public bool SendReply(string Email, string Body, string FullName)
+        {
+            bool blnStatus = false;
+
+            try
+            {
+                string[] strSep = new string[] { " - " };
+                string[] SentInfo = FullName.Split(strSep, StringSplitOptions.None);
+
+             //   var PartSubject = SentInfo[1];
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("info@icommd.org", "Islamic Center of Owings Mills");
+
+                message.To.Add(new MailAddress(Email, SentInfo[0]));
+
+                message.Subject = "Reply to your message sent on" + SentInfo[1];
+                message.Body = Body;
+
+                SmtpClient client = new SmtpClient();
+                client.Send(message);
+                blnStatus = true;
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                blnStatus = false;
+
+            }
+
+            return blnStatus;
+        }
+
+        public bool AutoReply(string Email, string Body, string FullName)
+        {
+            var SentInfo = FullName.Split('-');
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("info@icommd.org");
+
+            message.To.Add(new MailAddress(Email, SentInfo[0]));
+
+            message.Subject = "Reply to Message Sent on " + SentInfo[1];
+            message.Body = Body;
+
+            SmtpClient client = new SmtpClient();
+            client.Send(message);
+
+            return true;
+        }
+
+        [AllowAnonymous]
+        public JsonResult GetSalaat()
+        {
+            var Sataals = db.Salaat.FirstOrDefault();
+            return Json(Sataals, JsonRequestBehavior.AllowGet);
+            //return View(db.AppointmentDiary.ToList());
+        }
+
+
+        public ActionResult SaveSalaat(string Fajr,string Dhuhr, string Asr, string Maghrib,string Isha, string Khutbah1,  string Khutbah2,string Jumma1, string Jumma2)
+        {
+            var Sataals = db.Salaat.FirstOrDefault();
+            Sataals.Asr = Asr;
+            Sataals.Fajr = Fajr;
+            Sataals.DateAdded = DateTime.Now;
+            Sataals.Dhuhr = Dhuhr;
+            Sataals.Maghrib = Maghrib;
+            Sataals.Isha = Isha;
+            Sataals.Khutbah1 = Khutbah1;
+            Sataals.Jumma1 = Jumma1;
+            Sataals.Khutbah2 = Khutbah2;
+            Sataals.Jumma2 = Jumma2;
+
+            db.Entry(Sataals).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("SetSalaat");
         }
 
         //
@@ -115,23 +243,26 @@ namespace FullCalendar_MVC.Controllers
         // POST: /Event/Create
 
         [HttpPost]
-        public ActionResult Create(int EventID, HttpPostedFileBase Image)
+        public ActionResult Create(int EventID, HttpPostedFileBase[] Images)
         {
-           
-                if (Image != null)
+
+            if (Images != null)
+            {
+                foreach (var Image in Images)
                 {
-                ArtWorks artwork = new ArtWorks { ID = EventID, DateAdded=DateTime.Now };
+                    ArtWorks artwork = new ArtWorks { ID = EventID, DateAdded = DateTime.Now };
                     //attach the uploaded image to the object before saving to Database
-                db.ArtWorks.Add(artwork);
-                db.SaveChanges();
+                    db.ArtWorks.Add(artwork);
+                    db.SaveChanges();
                     artwork.ImageMimeType = Image.ContentLength;
                     artwork.ImageData = new byte[Image.ContentLength];
                     Image.InputStream.Read(artwork.ImageData, 0, Image.ContentLength);
 
-                string filename = String.Empty; 
-              var filePathOriginal = Utilities.Common.ProcessPublicComments(Image, artwork.ArtWorkID);      //Read image back from file and create thumbnail from it
-             //   var filename = Path.Combine(Server.MapPath("~/Content/portfolio/full"), filename);
-                filename = System.IO.Path.GetFileName(filePathOriginal);
+                    string filename = String.Empty;
+                    var filePathOriginal = Utilities.Common.ProcessPublicComments(Image, artwork.ArtWorkID); 
+                    //Read image back from file and create thumbnail from it
+                    //   var filename = Path.Combine(Server.MapPath("~/Content/portfolio/full"), filename);
+                    filename = System.IO.Path.GetFileName(filePathOriginal);
                     using (var srcImage = System.Drawing.Image.FromFile(filePathOriginal))
                     using (var newImage = new System.Drawing.Bitmap(338, 220))
                     using (var graphics = System.Drawing.Graphics.FromImage(newImage))
@@ -145,16 +276,17 @@ namespace FullCalendar_MVC.Controllers
                         var thumbNew = File(stream.ToArray(), "image/png");
                         artwork.ArtworkThumbnail = thumbNew.FileContents;
                     }
-                //Save model object to database
-                db.Entry(artwork).State = System.Data.EntityState.Modified;
-             //   db.ArtWorks.Add(artwork);
-                db.SaveChanges();
-                System.IO.File.Delete(filePathOriginal);
-   
-               }
+                    //Save model object to database
+                    db.Entry(artwork).State = System.Data.EntityState.Modified;
+                    //   db.ArtWorks.Add(artwork);
+                    db.SaveChanges();
+                    System.IO.File.Delete(filePathOriginal);
 
-                return RedirectToAction("Index");
-        
+                }
+            }
+
+            return RedirectToAction("AddGallery");
+
         }
 
         //

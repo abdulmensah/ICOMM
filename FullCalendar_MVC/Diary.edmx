@@ -40,6 +40,54 @@
           <Property Name="Message" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="DateSent" Type="datetime" />
         </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="50" />
+          <Property Name="DateSaved" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Salaat">
+          <Key>
+            <PropertyRef Name="SalaatID" />
+          </Key>
+          <Property Name="SalaatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fajr" Type="varchar" MaxLength="50" />
+          <Property Name="Dhuhr" Type="varchar" MaxLength="50" />
+          <Property Name="Asr" Type="varchar" MaxLength="50" />
+          <Property Name="Maghrib" Type="varchar" MaxLength="50" />
+          <Property Name="Isha" Type="varchar" MaxLength="50" />
+          <Property Name="Khutbah1" Type="varchar" MaxLength="50" />
+          <Property Name="Jumma1" Type="varchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Jumma2" Type="varchar" MaxLength="50" />
+          <Property Name="Khutbah2" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SalaatTypes">
+          <Key>
+            <PropertyRef Name="SalaatTypeID" />
+          </Key>
+          <Property Name="SalaatTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalaatType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Slides">
+          <Key>
+            <PropertyRef Name="SlideID" />
+          </Key>
+          <Property Name="SlideID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="BackImage" Type="image" />
+          <Property Name="MainImage" Type="image" />
+          <Property Name="DescColor" Type="varchar" MaxLength="50" />
+          <Property Name="TitleColor" Type="varchar" MaxLength="50" />
+          <Property Name="MoreInfoURL" Type="varchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +175,10 @@
           <EntitySet Name="AppointmentDiary" EntityType="Self.AppointmentDiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtWorks" EntityType="Self.ArtWorks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salaat" EntityType="Self.Salaat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalaatTypes" EntityType="Self.SalaatTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slides" EntityType="Self.Slides" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
@@ -157,6 +209,10 @@
           </AssociationSet>
           <EntitySet Name="AppointmentDiary" EntityType="Diary.AppointmentDiary" />
           <EntitySet Name="ArtWorks" EntityType="Diary.ArtWorks" />
+          <EntitySet Name="Folder" EntityType="Diary.Folder" />
+          <EntitySet Name="Salaat" EntityType="Diary.Salaat" />
+          <EntitySet Name="SalaatTypes" EntityType="Diary.SalaatTypes" />
+          <EntitySet Name="Slides" EntityType="Diary.Slides" />
         </EntityContainer>
         <EntityType Name="ContactInfo">
           <Key>
@@ -249,6 +305,54 @@
           <Property Name="ImageMimeType" Type="Int64" />
           <Property Name="ID" Type="Int32" />
           <Property Name="DateAdded" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateSaved" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Salaat">
+          <Key>
+            <PropertyRef Name="SalaatID" />
+          </Key>
+          <Property Name="SalaatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fajr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dhuhr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Asr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Maghrib" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Isha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Khutbah1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Jumma1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Jumma2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Khutbah2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SalaatTypes">
+          <Key>
+            <PropertyRef Name="SalaatTypeID" />
+          </Key>
+          <Property Name="SalaatTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalaatType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Slides">
+          <Key>
+            <PropertyRef Name="SlideID" />
+          </Key>
+          <Property Name="SlideID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BackImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="MainImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DescColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TitleColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MoreInfoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -355,6 +459,58 @@
                 <ScalarProperty Name="ImageData" ColumnName="ImageData" />
                 <ScalarProperty Name="ArtworkThumbnail" ColumnName="ArtworkThumbnail" />
                 <ScalarProperty Name="ArtWorkID" ColumnName="ArtWorkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Folder">
+            <EntityTypeMapping TypeName="Diary.Folder">
+              <MappingFragment StoreEntitySet="Folder">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateSaved" ColumnName="DateSaved" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileID" ColumnName="FileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salaat">
+            <EntityTypeMapping TypeName="Diary.Salaat">
+              <MappingFragment StoreEntitySet="Salaat">
+                <ScalarProperty Name="Khutbah2" ColumnName="Khutbah2" />
+                <ScalarProperty Name="Jumma2" ColumnName="Jumma2" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Jumma1" ColumnName="Jumma1" />
+                <ScalarProperty Name="Khutbah1" ColumnName="Khutbah1" />
+                <ScalarProperty Name="Isha" ColumnName="Isha" />
+                <ScalarProperty Name="Maghrib" ColumnName="Maghrib" />
+                <ScalarProperty Name="Asr" ColumnName="Asr" />
+                <ScalarProperty Name="Dhuhr" ColumnName="Dhuhr" />
+                <ScalarProperty Name="Fajr" ColumnName="Fajr" />
+                <ScalarProperty Name="SalaatID" ColumnName="SalaatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaatTypes">
+            <EntityTypeMapping TypeName="Diary.SalaatTypes">
+              <MappingFragment StoreEntitySet="SalaatTypes">
+                <ScalarProperty Name="SalaatType" ColumnName="SalaatType" />
+                <ScalarProperty Name="SalaatTypeID" ColumnName="SalaatTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slides">
+            <EntityTypeMapping TypeName="Diary.Slides">
+              <MappingFragment StoreEntitySet="Slides">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="MoreInfoURL" ColumnName="MoreInfoURL" />
+                <ScalarProperty Name="TitleColor" ColumnName="TitleColor" />
+                <ScalarProperty Name="DescColor" ColumnName="DescColor" />
+                <ScalarProperty Name="MainImage" ColumnName="MainImage" />
+                <ScalarProperty Name="BackImage" ColumnName="BackImage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SlideID" ColumnName="SlideID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
