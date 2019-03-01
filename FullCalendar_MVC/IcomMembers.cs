@@ -15,10 +15,10 @@ namespace FullCalendar_MVC
 using System;
     using System.Collections.Generic;
     
-public partial class ContactInfo
+public partial class IcomMembers
 {
 
-    public long ContactID { get; set; }
+    public int IcomMembersId { get; set; }
 
     public string FullName { get; set; }
 
@@ -26,9 +26,23 @@ public partial class ContactInfo
 
     public string Phone { get; set; }
 
-    public string Message { get; set; }
+    public string Address { get; set; }
 
-    public Nullable<System.DateTime> DateSent { get; set; }
+    public string City { get; set; }
+
+    public string State { get; set; }
+
+    public string PostalCode { get; set; }
+
+    public Nullable<System.DateTime> DateRegistered { get; set; }
+
+    public Nullable<decimal> AmountPaid { get; set; }
+
+    public Nullable<decimal> AmountCharged { get; set; }
+
+    public Nullable<System.DateTime> DOB { get; set; }
+
+    public string Country { get; set; }
 
 }
 

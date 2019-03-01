@@ -133,7 +133,8 @@ namespace FullCalendar_MVC.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
+    [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -143,7 +144,8 @@ namespace FullCalendar_MVC.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        [AllowAnonymous]
+    [Authorize]
+        //[AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {

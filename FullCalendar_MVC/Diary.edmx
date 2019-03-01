@@ -40,6 +40,24 @@
           <Property Name="Message" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="DateSent" Type="datetime" />
         </EntityType>
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="abbreviation" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FamilyMembers">
+          <Key>
+            <PropertyRef Name="FamilyMembersID" />
+          </Key>
+          <Property Name="FamilyMembersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="250" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="IcomMembersId" Type="int" />
+        </EntityType>
         <EntityType Name="Folder">
           <Key>
             <PropertyRef Name="FileID" />
@@ -48,6 +66,24 @@
           <Property Name="FileName" Type="varchar" MaxLength="50" />
           <Property Name="DateSaved" Type="datetime" />
           <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="IcomMembers">
+          <Key>
+            <PropertyRef Name="IcomMembersId" />
+          </Key>
+          <Property Name="IcomMembersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="City" Type="varchar" MaxLength="150" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="DateRegistered" Type="datetime" />
+          <Property Name="AmountPaid" Type="money" />
+          <Property Name="AmountCharged" Type="money" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Salaat">
           <Key>
@@ -87,6 +123,15 @@
           <Property Name="MoreInfoURL" Type="varchar" MaxLength="50" />
           <Property Name="DateAdded" Type="datetime" />
           <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_id" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="abbreviation" Type="varchar" MaxLength="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -175,10 +220,14 @@
           <EntitySet Name="AppointmentDiary" EntityType="Self.AppointmentDiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtWorks" EntityType="Self.ArtWorks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyMembers" EntityType="Self.FamilyMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IcomMembers" EntityType="Self.IcomMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salaat" EntityType="Self.Salaat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalaatTypes" EntityType="Self.SalaatTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slides" EntityType="Self.Slides" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="states" EntityType="Self.states" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
@@ -213,6 +262,10 @@
           <EntitySet Name="Salaat" EntityType="Diary.Salaat" />
           <EntitySet Name="SalaatTypes" EntityType="Diary.SalaatTypes" />
           <EntitySet Name="Slides" EntityType="Diary.Slides" />
+          <EntitySet Name="IcomMembers" EntityType="Diary.IcomMembers" />
+          <EntitySet Name="FamilyMembers" EntityType="Diary.FamilyMembers" />
+          <EntitySet Name="countries" EntityType="Diary.countries" />
+          <EntitySet Name="states" EntityType="Diary.states" />
         </EntityContainer>
         <EntityType Name="ContactInfo">
           <Key>
@@ -353,6 +406,51 @@
           <Property Name="MoreInfoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateAdded" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IcomMembers">
+          <Key>
+            <PropertyRef Name="IcomMembersId" />
+          </Key>
+          <Property Name="IcomMembersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateRegistered" Type="DateTime" Precision="3" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountCharged" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FamilyMembers">
+          <Key>
+            <PropertyRef Name="FamilyMembersID" />
+          </Key>
+          <Property Name="FamilyMembersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="IcomMembersId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="abbreviation" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_id" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="abbreviation" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -514,6 +612,55 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="IcomMembers">
+            <EntityTypeMapping TypeName="Diary.IcomMembers">
+              <MappingFragment StoreEntitySet="IcomMembers">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="DateRegistered" ColumnName="DateRegistered" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IcomMembersId" ColumnName="IcomMembersId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyMembers">
+            <EntityTypeMapping TypeName="Diary.FamilyMembers">
+              <MappingFragment StoreEntitySet="FamilyMembers">
+                <ScalarProperty Name="IcomMembersId" ColumnName="IcomMembersId" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="FamilyMembersID" ColumnName="FamilyMembersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countries">
+            <EntityTypeMapping TypeName="Diary.countries">
+              <MappingFragment StoreEntitySet="countries">
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="states">
+            <EntityTypeMapping TypeName="Diary.states">
+              <MappingFragment StoreEntitySet="states">
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -530,7 +677,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>

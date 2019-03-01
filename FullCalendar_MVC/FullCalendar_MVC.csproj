@@ -40,6 +40,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,6 +172,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="countries.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Diary.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +191,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Diary.edmx</DependentUpon>
     </Compile>
+    <Compile Include="FamilyMembers.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Folder.cs">
       <DependentUpon>Diary.tt</DependentUpon>
@@ -190,12 +201,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IcomMembers.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FamilyViewModel.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomProviderProvider.cs" />
     <Compile Include="Models\DiaryEvents.cs" />
     <Compile Include="Models\GalleryEvent.cs" />
     <Compile Include="Models\HomeData.cs" />
     <Compile Include="Models\ICustomPrincipal.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Salaat.cs">
@@ -206,6 +222,9 @@
     </Compile>
     <Compile Include="Shared.cs" />
     <Compile Include="Slides.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="states.cs">
       <DependentUpon>Diary.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
@@ -273,6 +292,7 @@
     <Content Include="Content\images\favicon.png" />
     <Content Include="Content\images\gfmlogoem2.png" />
     <Content Include="Content\images\goFundMe.png" />
+    <Content Include="Content\images\icomdonate.png" />
     <Content Include="Content\images\icomlogo.png" />
     <Content Include="Content\images\icomlogolow.png" />
     <Content Include="Content\images\ico\android-icon-144x144.png" />
@@ -579,6 +599,13 @@
     <Content Include="Views\Event\ContactMessage.cshtml" />
     <Content Include="Views\Home\ViewPDF.cshtml" />
     <Content Include="Views\Event\AddSlides.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Member\Details.cshtml" />
+    <Content Include="Views\Member\Create.cshtml" />
+    <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Member\Delete.cshtml" />
+    <Content Include="Views\Member\AddToFamily.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

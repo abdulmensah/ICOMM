@@ -1,0 +1,310 @@
+﻿@model FullCalendar_MVC.RegisterViewModel
+
+@{
+    ViewBag.Title = "Membership Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div><br />
+
+<section style="padding-top:30px;padding-bottom:10px;" id="contact-info">
+        <div class="container">
+            <div class="row">
+                <div style="width:800px; text-align:right;background-color:#F1E872; border-radius:5px;font-weight:bold; padding-top:0px; padding-left:0px; font-size:13pt;" class="col-sm-5">
+                    @using (Html.BeginForm("Create", "Member", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Createform" }))
+                    {
+                        <div style="padding-bottom:10px" class="center">
+                            <h4 class="modal-title" id="myModalLabel">ICOM @ViewBag.Title</h4>
+                        </div>
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.FullName, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.FullName, new { @class = "form-control" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.DOB, new { @class = "control-label" }):
+                                @*<input id="DOB" name="DOB" style="display:inline" class="form-control" type="date" />*@
+          @Html.EditorFor(model => model.DOB, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.Phone, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.Phone, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.Address, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.Address, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.City, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.City, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.PostalCode, new { @class = "control-label" }):
+                                @Html.EditorFor(model => model.PostalCode, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.Country, new { @class = "control-label" }):
+                                @Html.DropDownListFor(x => x.Country, new SelectList(Model.Countries, "abbreviation", "name"), new { @class = "form-control Country", @id = "Country" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.State, new { @class = "control-label" }):
+                                @Html.DropDownListFor(x => x.State, new List<SelectListItem>(), "--Select State--", new { @class = "form-control State", @id = "State" })
+                            </div>
+                            <br />
+                            <div id="fields" style="display:inline; text-align:right">
+                                <p>
+                                    <h4 class="modal-title" id="myModalLabel">Add Family Members</h4>
+                                </p>
+                                    @Html.Partial("AddToFamily", new FullCalendar_MVC.FamilyViewModel { IncIndex = 0, FamilyFullName = "", FamilyDOB = DateTime.Now }, new ViewDataDictionary() { { "intItemNum", 1 } })
+                                
+                                </div>
+                            <br />
+                                    <button type="button" style="width:50px; font-weight:bold; display:inline" id="btnAddFamily" name="btnAddFamily" class="btn btn-success btn-block">+ Add</button>
+                            <br />
+                            <input type="hidden" name="FamilyMembers" value="" id="FamilyMembers" />
+                            <p style="text-align:right">
+                                <input type="submit" value="Submit" style="width:150px; display:inline" class="btn btn-success btn-block" />
+                            </p>
+
+
+                    }
+                </div>
+            </div>
+
+        </div> 
+    <div id="login-overlay" style="background-color:transparent" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add Family Member</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="well" style="width:450px; text-align:right;">
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="">
+                                        <label>Full Name:</label>
+                                        <input type="text" id="FamilyFullName" class="form-control" name="FamilyFullName" placeholder="Full Name here"><br />
+                                        <label>Date Of Birth</label>
+                                        <input id="FamilyDOB" name="FamilyDOB" style="display:inline" class="form-control" placeholder="Date Of Birth here" type="date" /><br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="">
+                                        <button type="button" id="btnSaveFamily" name="btnSaveFamily" class="btn btn-success btn-block">Save</button> <button type="button" id="btnCancelAdd" name="btnCancelAdd" class="btn-danger btn-block">Cancel</button>
+                                    </td>
+                                </tr>
+           </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="txtUserRow" type="text" value="1" hidden="hidden">
+
+</section>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+}
+<script>
+
+        $(document).ready(function () {
+            $(".nav li").removeClass("active");//this will remove the active class from
+            $('#lMember').addClass('active');
+            $('#login-overlay').hide();
+
+        });
+
+        $('#Country').change(function () {
+            iCountryID = $(this).val();
+            if (iCountryID!="")
+            {
+                GetStates(iCountryID);
+         
+            }
+        });
+
+        function GetStates(CountryID){
+
+            var allStates = @Html.Raw(Json.Encode(@Model.States));
+            var fndState=$.grep(allStates, function(element){ return element.Country == CountryID; })
+
+            if (fndState.length>0)
+            {
+                var company = "<select name='State' id='State' class='form-control State'>";
+                company = company + '<option value="">--Select State--</option>';
+                for (var i = 0; i < fndState.length; i++) {
+                    company = company + '<option value=' + fndState[i].Abbr + '>' + fndState[i].Name + '</option>';
+                }
+                company = company + '</select>';
+                $('#State').html(company);
+                //$('#State').rules("add", {
+                //    required: true, messages: { required: "Company Name is required." }
+                //});
+            }
+        }
+
+        function lastIncDate() {
+            if ($.trim($(".FamilyFullName").last().val()).length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        var $fields = $('#fields');
+
+        $('#btnAddFamily').click(function () {
+            var rowCount= $('#txtUserRow');
+          
+                intCurrRow = parseInt(rowCount.val());
+            intNewRow =intCurrRow + 1;
+            var strDivRow = "#divUserRow" + intNewRow;
+            var UserInfo = { id: intNewRow };
+            if (intNewRow < 2) {
+
+                $.ajax({
+                    url: "../Member/AddToFamily",
+                    data: UserInfo,
+                    cache: false,
+                    success: function (html) {
+                        $fields.append(html);
+                        $('#txtUserRow').val(intNewRow);
+                    }
+                });
+            } else {
+                if (lastIncDate()) {
+                    $.ajax({
+                        url: "../Member/AddToFamily",
+                        data: UserInfo,
+                        cache: false,
+                        success: function (html) {
+                            $(".divUserRow").last().after(html);
+
+                            $('#txtUserRow').val(intNewRow);
+                        }
+                    });
+                }
+            }
+
+
+            return false;
+
+        });
+
+        function RemoveButton(obj, e) {
+            //var strDivRow = "#divUserRow" + e;
+            //var strDelRow = "#divUserRow" + e;
+            var divMember = $(obj).parents("#divUserRow:first").find('.FamilyFullName');
+            alert(divMember);
+            var fullName = $(obj).parents("#divUserRow:first").find('.FamilyFullName').val();
+            alert(fullName);
+            alert(fullName.val());
+
+            if (fullName != null) {
+
+                if (confirm("Are you sure you want to remove this family member: " + fullName.val() + "?")) {
+                    //var intCurrRow = (parseInt($('#txtUserRow').val()) - 1);
+                    //if ((intCurrRow + 1) == e) {
+                    //    $('#txtUserRow').val(intCurrRow);
+                    //}
+
+                    divMember.remove();
+                    $(obj).remove();
+                };
+            };
+
+
+        }
+
+        function ShowEventPopup() {
+            ClearPopupFormValues();
+            $('#login-overlay').dialog({
+                resizable: false,
+                height: "auto",
+                width: 600,
+                modal: true,
+                buttons: {
+                    "Add Member": AddFamily,
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    $(this).dialog("close")
+                }
+            });
+            $('.FamilyFullName').focus();
+        }
+
+        function AddFamily()
+        {
+            $('#FamilyMemberList').val($('#FamilyMemberList').val() + $('.FamilyFullName').val() + ' (DOB: ' + $('#FamilyDOB').val() + ')' + ';\n');
+            $('#FamilyMembers').val($('#FamilyMembers').val() + $('.FamilyFullName').val() + ';' + $('#FamilyDOB').val() + '|');
+            $("#login-overlay").dialog("close")
+
+        }
+     //   $('#btnAddFamily').click(function () {
+      //     ShowEventPopup();
+      //  });
+
+    //    $('#btnCancelAdd').click(function () {
+    //        $('#login-overlay').dialog("close");
+    //    });
+
+        $('#btnSaveFamily').click(function () {
+            if (!$('.FamilyFullName').val() || !$('#FamilyDOB').val())
+            { alert("Please enter both Full Name and Date Of Birth"); }
+            else
+            { AddFamily(); }
+
+        });
+
+    $('#Address').keydown, $('#Address').keyup, $('#Address').keypress,
+            $('#PostalCode').keydown, $('#PostalCode').keyup, $('#PostalCode').keypress,
+            $('#City').keydown, $('#City').keyup, $('#City').keypress,
+$('#FullName').keydown, $('#FullName').keyup, $('#FullName').keypress,
+        $('.FamilyFullName').keydown, $('.FamilyFullName').keypress, $('.FamilyFullName').keyup(
+            function() {
+            $(this).val($(this).val().replace('\\', '').replace('/', '').replace('(', '').replace(';', '').replace(':', '').replace('|', '').replace('"', '').replace('\'', '').replace(')', ''));
+
+        });
+
+            function ClearPopupFormValues() {
+                $('.FamilyFullName').val("");
+                $('#FamilyDOB').val("");
+            }
+
+</script>

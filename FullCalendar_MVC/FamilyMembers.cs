@@ -15,24 +15,18 @@ namespace FullCalendar_MVC
 using System;
     using System.Collections.Generic;
     
-public partial class webpages_Roles
+public partial class FamilyMembers
 {
 
-    public webpages_Roles()
-    {
+    public int FamilyMembersID { get; set; }
 
-        this.Users = new HashSet<Users>();
+    public string FullName { get; set; }
 
-    }
+    public Nullable<System.DateTime> DOB { get; set; }
 
+    public Nullable<System.DateTime> DateAdded { get; set; }
 
-    public int RoleId { get; set; }
-
-    public string RoleName { get; set; }
-
-
-
-    public virtual ICollection<Users> Users { get; set; }
+    public Nullable<int> IcomMembersId { get; set; }
 
 }
 

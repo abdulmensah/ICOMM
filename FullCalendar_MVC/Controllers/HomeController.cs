@@ -69,9 +69,9 @@ namespace FullCalendar_MVC.Controllers
                 eventList.Add(
                     new Models.ImageItem
                     {
-                        Description = Utilities.StringExtensions.CutString(item.ImageEvent.Description, 80),
+                        Description = Utilities.StringExtensions.CutString(ImageEvent(db, item.ID).Description, 80),
                         ImageID = item.ArtWorkID,
-                        Title = Utilities.StringExtensions.CutString(item.ImageEvent.Title, 15)
+                        Title = Utilities.StringExtensions.CutString(ImageEvent(db, item.ID).Title, 15)
                     });
             }
 
@@ -204,6 +204,12 @@ namespace FullCalendar_MVC.Controllers
             ViewBag.SearchString = SearchString;
             ViewBag.Title = "Search";
             return View("SearchResult");
+        }
+
+        public AppointmentDiary ImageEvent(DiaryContainer db, int? ID)
+        {
+                return db.AppointmentDiary.Find(ID);
+       
         }
 
 
