@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Diary.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Diary.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppointmentDiary">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,6 +57,7 @@
           <Property Name="DOB" Type="date" />
           <Property Name="DateAdded" Type="datetime" />
           <Property Name="IcomMembersId" Type="int" />
+          <Property Name="PrimaryMember" Type="bit" />
         </EntityType>
         <EntityType Name="Folder">
           <Key>
@@ -84,6 +85,7 @@
           <Property Name="AmountCharged" Type="money" />
           <Property Name="DOB" Type="date" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Salaat">
           <Key>
@@ -424,6 +426,7 @@
           <Property Name="AmountCharged" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="FamilyMembers">
           <Key>
@@ -434,6 +437,7 @@
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="DateAdded" Type="DateTime" Precision="3" />
           <Property Name="IcomMembersId" Type="Int32" />
+          <Property Name="PrimaryMember" Type="Boolean" />
         </EntityType>
         <EntityType Name="countries">
           <Key>
@@ -615,6 +619,7 @@
           <EntitySetMapping Name="IcomMembers">
             <EntityTypeMapping TypeName="Diary.IcomMembers">
               <MappingFragment StoreEntitySet="IcomMembers">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
@@ -634,6 +639,7 @@
           <EntitySetMapping Name="FamilyMembers">
             <EntityTypeMapping TypeName="Diary.FamilyMembers">
               <MappingFragment StoreEntitySet="FamilyMembers">
+                <ScalarProperty Name="PrimaryMember" ColumnName="PrimaryMember" />
                 <ScalarProperty Name="IcomMembersId" ColumnName="IcomMembersId" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
@@ -678,7 +684,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

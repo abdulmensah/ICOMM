@@ -19,7 +19,7 @@
         <div style="background-color:darkblue; font-size:13pt; color:white; width:100% " class="social">
     <table style="color:white; width:100% "> 
             <tr>
-        <td style="text-align:left; width:50%; vertical-align:top ">
+        <td style="text-align:left; width:20%; vertical-align:top ">
 
             Hello, @Html.ActionLink(User.Identity.Name, "Index", "Event", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
 
@@ -32,6 +32,7 @@
                     <div style="width:100%" role="form">
                         <a style="display:inline; color:white" href="~/Home"><i class="fa fa-home"></i> Home </a>|
                         <a style="display:inline; color:white" href="~/Event"><i class="fa fa-calendar"></i> Manage Events </a>|
+                        <a style="display:inline; color:white" href="~/Member"><i class="fa fa-user"></i> Manage Members </a>|
                         <a style="display:inline; color:white" href="~/Event/SetSalaat"><i class="fa fa-clock-o"></i> Manage Salaat </a>|
                         <a style="display:inline; color:white" href="~/Event/AddGallery"><i class="fa fa-picture-o" aria-hidden="true"></i> Add Gallery Image(s) </a>|
                         <a style="display:inline; color:white" href="~/Event/ContactMessage"><i class="fa fa-envelope" aria-hidden="true"></i> View Contacts </a>|

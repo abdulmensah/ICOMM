@@ -1,103 +1,341 @@
-﻿@model FullCalendar_MVC.IcomMembers
+﻿@model FullCalendar_MVC.RegisterViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Membership Registration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+<br />
+<br />
+<br />
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div><br />
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<section style="padding-top:30px;padding-bottom:10px;" id="contact-info">
+    <div class="container">
+        <div class="row">
+            <div style="width:800px; text-align:right;background-color:#F1E872; border-radius:5px;font-weight:bold; padding-top:0px; padding-left:0px; font-size:13pt;" class="col-sm-5">
+                @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Editform" }))
+                {
+@Html.HiddenFor(model => model.IcomMembersId)
+@Html.HiddenFor(model => model.IsDeleted, new { @id = "IsDeleted", @name = "IsDeleted", @class = "IsDeleted" })
+                    <div style="padding-bottom:0px; text-align:right">
+                        <button type="button" id="btnClose" style="width:50px; background-color:transparent; border:0px none transparent; display:inline;" title="Return to Members" name="btnCancelAdd"onclick="window.location.href = '@Url.Action("Index")';"><i style="font-size:48px;color:red" class="fa fa-close"></i></button>
 
-    <fieldset>
-        <legend>IcomMembers</legend>
+                    </div>                   <div style="padding-bottom:10px" class="center">
+                        <h4 class="modal-title" id="myModalLabel">ICOM @ViewBag.Title</h4>
+                    </div>
 
-        @Html.HiddenFor(model => model.IcomMembersId)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FullName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FullName)
-            @Html.ValidationMessageFor(model => model.FullName)
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.FullName, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.FullName, new { @class = "form-control IcomMemberFullName" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.DOB, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.DOB, new { @class = "form-control  date-picker" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.Phone, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Phone, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.Address, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Address, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.City, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.City, new { @class = "form-control" })
+                        </div>
+
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                            @Html.LabelFor(model => model.PostalCode, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.PostalCode, new { @class = "form-control" })
+                        </div>
+
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.Country, new { @class = "control-label" }):
+                            @Html.DropDownListFor(x => x.Country, new SelectList(Model.Countries, "abbreviation", "name"), new { @class = "form-control Country", @id = "Country" })
+                        </div>
+
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.State, new { @class = "control-label" }):
+                            @Html.DropDownListFor(x => x.State, new SelectList(Model.EditStates, "Abbr", "Name"), new { @class = "form-control State", @id = "State" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.AmountCharged, new { @class = "control-label" }):
+                            @Html.TextBoxFor(model => model.AmountCharged, new { @class = "form-control", @disabled = "true", @readonly = "true" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                            @Html.LabelFor(model => model.AmountPaid, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.AmountPaid, new { @class = "form-control" })
+                        </div>
+                            <br />
+
+                            <div id="fields" style="width:90%;display:inline; text-align:right;">
+                                <div style="margin-bottom:0px;margin-left:10%;padding-top:10px;padding-bottom:0px; width:90%; border-bottom:1px solid #0A3BA2">
+                                    <h4 style="margin-bottom:0px;padding-bottom:0px;" class="modal-title center" id="myModalLabel">Add Family Members</h4>
+                                </div>
+
+                                @{int intItemNum = 0;
+                                }
+                                @if (Model.Families != null)
+                                {
+
+                                    foreach (var item in Model.Families)
+                                    {
+                                        intItemNum++;
+                                        @Html.Partial("AddToFamily", new FullCalendar_MVC.FamilyViewModel { IncIndex = item.FamilyMembersID, FamilyFullName = item.FullName, FamilyDOB = item.DOB, IsPrimary = (bool)item.PrimaryMember }, new ViewDataDictionary() { { "intItemNum", intItemNum } })
+
+                                    }
+                                }
+                                else
+                                {
+
+                                    @Html.Partial("AddToFamily", new FullCalendar_MVC.FamilyViewModel { IncIndex = 0, FamilyFullName = "", FamilyDOB = DateTime.Now, IsPrimary = false }, new ViewDataDictionary() { { "intItemNum", 1 } })
+                                }
+                                <button type="button" style="width:50px; font-weight:bold; display:inline" id="btnAddFamily" name="btnAddFamily" class="btn btn-success btn-block">+ Add</button>
+
+                            </div>
+                                <br />
+                                <br />
+                                <br />
+                                    <br />
+                                    <input type="hidden" name="FamilyMembers" value="@intItemNum" id="FamilyMembers" />
+                                    <p style="text-align:right">
+                                        <button type="submit" style="width:150px; display:inline" class="btn btn-success btn-block"><i class="fa fa-save"></i> Submit</button>
+                                    </p>
+                                    <p style="text-align:right">
+                                        <button type="button" style="width:150px; font-weight:bold; display:inline; background-color:#0A3BA2" id="btnDeleteMember" 
+                                        onclick="DeleteMember(this,@Model.IcomMembersId)" value="@((bool)Model.IsDeleted ? "Un-Delete" : "Delete")" name="btnDeleteMember" 
+                                                class="btn btn-success btn-block btnDeleteMember">@((bool)Model.IsDeleted ? "Un-Delete" : "Delete")</button>
+</p>
+
+
+                                    }
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
+    </div>
+    <input id="txtUserRow" type="text" value="@Model.Families.Count()" hidden="hidden">
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
+</section>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address)
-            @Html.ValidationMessageFor(model => model.Address)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.State)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.State)
-            @Html.ValidationMessageFor(model => model.State)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostalCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostalCode)
-            @Html.ValidationMessageFor(model => model.PostalCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateRegistered)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateRegistered)
-            @Html.ValidationMessageFor(model => model.DateRegistered)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AmountPaid)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AmountPaid)
-            @Html.ValidationMessageFor(model => model.AmountPaid)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 }
+<script>
+    var $fields = $('#fields');
+
+        $(document).ready(function () {
+            $(".nav li").removeClass("active");//this will remove the active class from
+            $('#lMember').addClass('active');
+            $('#login-overlay').hide();
+
+            $( ".divUserRow" ).each(function( index ) {
+                if ($(this).data( "block" )=='yes')
+                {
+                    var divId=  $(this).attr('id');
+                    $(this).find('input, textarea, button, select').attr('disabled','disabled');
+
+                }
+            });
+
+            if ($('.divUserRow').attr('disabled')=='disabled')
+            {
+                var divId=  $('.divUserRow').attr('id');
+                $(('#'+divId)).find('input, textarea, button, select').attr('disabled','disabled');
+
+            }
+
+        });
+
+        $('#Country').change(function () {
+            iCountryID = $(this).val();
+            if (iCountryID!="")
+            {
+                GetStates(iCountryID);
+
+            }
+        });
+
+        function GetStates(CountryID){
+
+            var allStates = @Html.Raw(Json.Encode(@Model.States));
+            var fndState=$.grep(allStates, function(element){ return element.Country == CountryID; })
+
+            if (fndState.length>0)
+            {
+                var company = "<select name='State' id='State' class='form-control State'>";
+                company = company + '<option value="">--Select State--</option>';
+                for (var i = 0; i < fndState.length; i++) {
+                    company = company + '<option value=' + fndState[i].Abbr + '>' + fndState[i].Name + '</option>';
+                }
+                company = company + '</select>';
+                $('#State').html(company);
+            }
+        }
+
+        function lastIncDate() {
+            if ($.trim($(".FamilyFullName").last().val()).length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        function RemoveButton(obj, e) {
+            var strDivRow = "#divUserRow" + e;
+            var strDelRow = "#divUserRow" + e;
+
+            var fullName = $(strDelRow).find('.FamilyFullName');
+            if (fullName != null) {
+
+                if (confirm("Are you sure you want to remove this family member: " + fullName.val() + "?")) {
+                    var intCurrRow = (parseInt($('#txtUserRow').val()) - 1);
+                    if ((intCurrRow + 1) == e) {
+                        $('#txtUserRow').val(intCurrRow);
+                    }
+
+                    $(strDelRow).remove();
+                };
+            };
+
+
+        }
+
+        function ShowEventPopup() {
+            ClearPopupFormValues();
+            $('#login-overlay').dialog({
+                resizable: false,
+                height: "auto",
+                width: 600,
+                modal: true,
+                buttons: {
+                    "Add Member": AddFamily,
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    $(this).dialog("close")
+                }
+            });
+            $('.FamilyFullName').focus();
+        }
+
+        function AddFamily()
+        {
+            $('#FamilyMemberList').val($('#FamilyMemberList').val() + $('.FamilyFullName').val() + ' (DOB: ' + $('#FamilyDOB').val() + ')' + ';\n');
+            $('#FamilyMembers').val($('#FamilyMembers').val() + $('.FamilyFullName').val() + ';' + $('#FamilyDOB').val() + '|');
+            $("#login-overlay").dialog("close")
+
+        }
+
+        $('#btnSaveFamily').click(function () {
+            if (!$('.FamilyFullName').val() || !$('#FamilyDOB').val())
+            { alert("Please enter both Full Name and Date Of Birth"); }
+            else
+            { AddFamily(); }
+
+        });
+
+    $('#Address').keydown, $('#Address').keyup, $('#Address').keypress,
+            $('#PostalCode').keydown, $('#PostalCode').keyup, $('#PostalCode').keypress,
+            $('#City').keydown, $('#City').keyup, $('#City').keypress,
+$('#FullName').keydown, $('#FullName').keyup, $('#FullName').keypress,
+        $('.FamilyFullName').keydown, $('.FamilyFullName').keypress, $('.FamilyFullName').keyup(
+            function() {
+            $(this).val($(this).val().replace('\\', '').replace('/', '').replace('(', '').replace(';', '').replace(':', '').replace('|', '').replace('"', '').replace('\'', '').replace(')', ''));
+
+        });
+
+    function ClearPopupFormValues() {
+        $('.FamilyFullName').val("");
+        $('#FamilyDOB').val("");
+    };
+
+    $('#btnAddFamily').click(function () {
+                var rowCount= $('#txtUserRow');
+
+                intCurrRow = parseInt(rowCount.val());
+                intNewRow =intCurrRow + 1;
+                var strDivRow = "#divUserRow" + intNewRow;
+                var UserInfo = { id: intNewRow };
+                if (intNewRow < 2) {
+
+                    $.ajax({
+                        url: "/Member/AddToFamily",
+                        data: UserInfo,
+                        cache: false,
+                        success: function (html) {
+                            $fields.append(html);
+                            $('#txtUserRow').val(intNewRow);
+                          //  $fields.resizable();
+
+                        }
+                    });
+                } else {
+                    if (lastIncDate()) {
+                        $.ajax({
+                            url: "/Member/AddToFamily",
+                            data: UserInfo,
+                            cache: false,
+                            success: function (html) {
+                                $(".divUserRow").last().after(html);
+
+                                $('#txtUserRow').val(intNewRow);
+                              //  $fields.resizable();
+
+                            }
+                        });
+                    }
+                }
+
+
+                return false;
+
+            });
+ 
+    function DeleteMember(obj, Id) {
+
+        var intDel = $(obj).val()=="Un-Delete"?0:1;
+        var strDel = $(obj).val() == "Un-Delete" ? "inculde" : "exclude";
+        var strDelCol = $(obj).val() == "Un-Delete" ? "orange" : "#0A3BA2";
+
+        var UserInfo = { id: Id, status:intDel };
+        var fullName =  $('#FullName');
+
+        if (confirm("Are you sure you want to "+strDel+" this Icom Member: " + fullName.val() + "?")) {
+
+            $.ajax({
+                url: "/Member/DeleteMember",
+                data: UserInfo,
+                cache: false,
+                success: function (html) {
+                    var state=intDel==0?"Delete":"Un-Delete";
+                    $(obj).val(state);
+                    $(obj).css("background-color", strDelCol);;
+                    $(obj).text(state);
+                }
+            });}
+
+
+    }
+
+
+</script>

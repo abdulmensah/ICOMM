@@ -44,6 +44,8 @@ public partial class IcomMembers
 
     public string Country { get; set; }
 
+    public Nullable<bool> IsDeleted { get; set; }
+
 }
 
 }

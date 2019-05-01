@@ -228,6 +228,9 @@
 .fa-check:before {
   content: "\f00c";
 }
+.fa-close:before {
+  content: "\f00d";
+}
 .fa-times:before {
   content: "\f00d";
 }
@@ -848,8 +851,14 @@
 .fa-cloud-upload:before {
   content: "\f0ee";
 }
+.fa-user-check:before {
+  content: "\f4fc";
+}
 .fa-user-md:before {
   content: "\f0f0";
+}
+.fa-user-times:before {
+  content: "\f235";
 }
 .fa-stethoscope:before {
   content: "\f0f1";

@@ -25,68 +25,71 @@
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary()
 
-                            <div class="form-group">
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.FullName, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.FullName, new { @class = "form-control" })
+                            @Html.LabelFor(model => model.FullName, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.FullName, new { @class = "form-control" })
 
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.Email, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.DOB, new { @class = "control-label" }):
-                                @*<input id="DOB" name="DOB" style="display:inline" class="form-control" type="date" />*@
-          @Html.EditorFor(model => model.DOB, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
+                            @Html.LabelFor(model => model.DOB, new { @class = "control-label" }):
+                            @*<input id="DOB" name="DOB" style="display:inline" class="form-control" type="date" />*@
+                            @Html.EditorFor(model => model.DOB, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.Phone, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.Phone, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Phone, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.Address, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.Address, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
+                            @Html.LabelFor(model => model.Address, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.Address, new { @class = "form-control" })
+                        </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.City, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.City, new { @class = "form-control" })
-                            </div>
+                            @Html.LabelFor(model => model.City, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.City, new { @class = "form-control" })
+                        </div>
 
-                            <div class="form-group">
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.PostalCode, new { @class = "control-label" }):
-                                @Html.EditorFor(model => model.PostalCode, new { @class = "form-control" })
-                            </div>
+                            @Html.LabelFor(model => model.PostalCode, new { @class = "control-label" }):
+                            @Html.EditorFor(model => model.PostalCode, new { @class = "form-control" })
+                        </div>
 
-                            <div class="form-group">
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
 
-                                @Html.LabelFor(model => model.Country, new { @class = "control-label" }):
-                                @Html.DropDownListFor(x => x.Country, new SelectList(Model.Countries, "abbreviation", "name"), new { @class = "form-control Country", @id = "Country" })
-                            </div>
+                            @Html.LabelFor(model => model.Country, new { @class = "control-label" }):
+                            @Html.DropDownListFor(x => x.Country, new SelectList(Model.Countries, "abbreviation", "name"), new { @class = "form-control Country", @id = "Country" })
+                        </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.State, new { @class = "control-label" }):
-                                @Html.DropDownListFor(x => x.State, new List<SelectListItem>(), "--Select State--", new { @class = "form-control State", @id = "State" })
-                            </div>
+                        <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                            @Html.LabelFor(model => model.State, new { @class = "control-label" }):
+                            @Html.DropDownListFor(x => x.State, new List<SelectListItem>(), "--Select State--", new { @class = "form-control State", @id = "State" })
+                        </div>
                             <br />
-                            <div id="fields" style="display:inline; text-align:right">
-                                <p>
-                                    <h4 class="modal-title" id="myModalLabel">Add Family Members</h4>
-                                </p>
-                                    @Html.Partial("AddToFamily", new FullCalendar_MVC.FamilyViewModel { IncIndex = 0, FamilyFullName = "", FamilyDOB = DateTime.Now }, new ViewDataDictionary() { { "intItemNum", 1 } })
-                                
+                            <div id="fields" style="width:90%;display:inline; text-align:right;">
+                                <div style="margin-bottom:0px;margin-left:10%;padding-top:10px;padding-bottom:0px; width:90%; border-bottom:1px solid #0A3BA2">
+                                    <h4 style="margin-bottom:0px;padding-bottom:0px;" class="modal-title center" id="myModalLabel">Add Family Members</h4>
                                 </div>
-                            <br />
+                                @Html.Partial("AddToFamily", new FullCalendar_MVC.FamilyViewModel { IncIndex = 0, FamilyFullName = "", FamilyDOB = DateTime.Now, IsPrimary = false }, new ViewDataDictionary() { { "intItemNum", 1 } })
+
+
+                            </div>
                                     <button type="button" style="width:50px; font-weight:bold; display:inline" id="btnAddFamily" name="btnAddFamily" class="btn btn-success btn-block">+ Add</button>
-                            <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
                             <input type="hidden" name="FamilyMembers" value="" id="FamilyMembers" />
                             <p style="text-align:right">
-                                <input type="submit" value="Submit" style="width:150px; display:inline" class="btn btn-success btn-block" />
+                                <button type="submit" style="width:150px; font-weight:bold; display:inline" class="btn btn-success btn-block"><i class="fa fa-save"></i> Submit</button>
                             </p>
 
 
@@ -95,44 +98,24 @@
             </div>
 
         </div> 
-    <div id="login-overlay" style="background-color:transparent" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Add Family Member</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <div class="well" style="width:450px; text-align:right;">
-                            <table style="width:100%">
-                                <tr>
-                                    <td style="">
-                                        <label>Full Name:</label>
-                                        <input type="text" id="FamilyFullName" class="form-control" name="FamilyFullName" placeholder="Full Name here"><br />
-                                        <label>Date Of Birth</label>
-                                        <input id="FamilyDOB" name="FamilyDOB" style="display:inline" class="form-control" placeholder="Date Of Birth here" type="date" /><br />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="">
-                                        <button type="button" id="btnSaveFamily" name="btnSaveFamily" class="btn btn-success btn-block">Save</button> <button type="button" id="btnCancelAdd" name="btnCancelAdd" class="btn-danger btn-block">Cancel</button>
-                                    </td>
-                                </tr>
-           </table>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
     <input id="txtUserRow" type="text" value="1" hidden="hidden">
 
 </section>
 
 
-
+@*<div id="popupEventForm" name="popupEventForm" title="Add new event" class="modal hide" style="display: none;">
+    <table>
+        <tr>
+            <td style="padding-right:30px">
+                <input type="hidden" id="eventID">
+                <label>Full Name</label>
+                <input type="text" id="FamilyFullName" name="FamilyFullName" placeholder="Full Name here"><br />
+                <label>Date Of Birth</label>
+                <input id="FamilyDOB" name="FamilyDOB" class="form-control" placeholder="Date Of Birth here" type="date" /><br />
+            </td>
+        </tr>
+    </table>
+</div>*@
 
 
 @section Scripts {
@@ -187,37 +170,56 @@
         var $fields = $('#fields');
 
         $('#btnAddFamily').click(function () {
-            var rowCount= $('#txtUserRow');
+
+              
+            var anyMember=$(".FamilyFullName").val();
+            if (anyMember!=null)
+            {
+                var rowCount= $('#txtUserRow');
           
                 intCurrRow = parseInt(rowCount.val());
-            intNewRow =intCurrRow + 1;
-            var strDivRow = "#divUserRow" + intNewRow;
-            var UserInfo = { id: intNewRow };
-            if (intNewRow < 2) {
+                intNewRow =intCurrRow + 1;
+                var UserInfo = { id: intNewRow };
+                var strDivRow = "#divUserRow" + intNewRow;
+                if (intNewRow < 2) {
+                    $.ajax({
+                        url: "../Member/AddToFamily",
+                        data: UserInfo,
+                        cache: false,
+                        success: function (html) {
+                            $fields.append(html);
+                            $('#txtUserRow').val(intNewRow);
+                        }
+                    });
+                } else {
+                    if (lastIncDate()) {
+                        $.ajax({
+                            url: "../Member/AddToFamily",
+                            data: UserInfo,
+                            cache: false,
+                            success: function (html) {
+                                $(".divUserRow").last().after(html);
 
+                                $('#txtUserRow').val(intNewRow);
+                            }
+                        });
+                    }
+                }            
+            }
+            else{
+                var UserInfo = { id: intNewRow };
                 $.ajax({
                     url: "../Member/AddToFamily",
                     data: UserInfo,
                     cache: false,
                     success: function (html) {
                         $fields.append(html);
-                        $('#txtUserRow').val(intNewRow);
+                        $('#txtUserRow').val(1);
                     }
                 });
-            } else {
-                if (lastIncDate()) {
-                    $.ajax({
-                        url: "../Member/AddToFamily",
-                        data: UserInfo,
-                        cache: false,
-                        success: function (html) {
-                            $(".divUserRow").last().after(html);
 
-                            $('#txtUserRow').val(intNewRow);
-                        }
-                    });
-                }
             }
+
 
 
             return false;
@@ -225,24 +227,19 @@
         });
 
         function RemoveButton(obj, e) {
-            //var strDivRow = "#divUserRow" + e;
-            //var strDelRow = "#divUserRow" + e;
-            var divMember = $(obj).parents("#divUserRow:first").find('.FamilyFullName');
-            alert(divMember);
-            var fullName = $(obj).parents("#divUserRow:first").find('.FamilyFullName').val();
-            alert(fullName);
-            alert(fullName.val());
+            var strDivRow = "#divUserRow" + e;
+            var strDelRow = "#divUserRow" + e;
 
+            var fullName = $(strDelRow).find('.FamilyFullName');
             if (fullName != null) {
 
                 if (confirm("Are you sure you want to remove this family member: " + fullName.val() + "?")) {
-                    //var intCurrRow = (parseInt($('#txtUserRow').val()) - 1);
-                    //if ((intCurrRow + 1) == e) {
-                    //    $('#txtUserRow').val(intCurrRow);
-                    //}
+                    var intCurrRow = (parseInt($('#txtUserRow').val()) - 1);
+                    if ((intCurrRow + 1) == e) {
+                        $('#txtUserRow').val(intCurrRow);
+                    }
 
-                    divMember.remove();
-                    $(obj).remove();
+                    $(strDelRow).remove();
                 };
             };
 

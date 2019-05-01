@@ -65,16 +65,21 @@ namespace FullCalendar_MVC
         [Display(Name = "Zip")]
         public string PostalCode { get; set; }
 
+        [Display(Name = "Date")]
         public Nullable<System.DateTime> DateRegistered { get; set; }
 
         [Display(Name = "Payment")]
         public Nullable<decimal> AmountPaid { get; set; }
+
+        [Display(Name = "Status")]
+        public Nullable<bool> IsDeleted { get; set; }
 
         [Display(Name = "Charged")]
         public Nullable<decimal> AmountCharged { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date of Birth")]
         public Nullable<System.DateTime> DOB { get; set; }
 
@@ -87,7 +92,29 @@ namespace FullCalendar_MVC
                 return stList.Select(s => new State { Name = s.name, Abbr = s.abbreviation, Country = s.country_id == 1 ? "CAN" : "USA" }).ToList();
             }
         }
+        public virtual List<State> EditStates
+        {
+            get
+            {
+                var cId = Country == "CAN" ? 1 : 2;
+                var stList = db.states.Where(s => s.country_id == cId).ToList();
+                return stList.Select(s => new State { Name = s.name, Abbr = s.abbreviation, Country = s.country_id == 1 ? "CAN" : "USA" }).ToList();
+            }
+        }
+
+        [Display(Name = "Family Members")]
         public IEnumerable<FamilyViewModel> Family { get; set; }
+
+
+        [Display(Name = "Family Members")]
+        public IEnumerable<FamilyMembers> Families
+        {
+            get
+            {
+                return db.FamilyMembers.Where(s => s.IcomMembersId == IcomMembersId).OrderByDescending(s=>s.PrimaryMember);
+            }
+            
+        }
 
         public virtual List<countries> Countries
         {

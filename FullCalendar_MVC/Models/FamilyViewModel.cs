@@ -27,10 +27,12 @@ namespace FullCalendar_MVC
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date of Birth")]
         public Nullable<System.DateTime> FamilyDOB { get; set; }
 
         public int IncIndex { get; set; }
+        public bool IsPrimary { get; set; }
 
 
 

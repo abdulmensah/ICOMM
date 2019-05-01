@@ -34,7 +34,7 @@ namespace FullCalendar_MVC.Models
             var toDate = ConvertFromUnixTimestamp(end);
             using (DiaryContainer ent = new DiaryContainer())
             {
-                var rslt = ent.AppointmentDiary.Where(s => s.DateTimeScheduled >= fromDate && System.Data.Objects.EntityFunctions.AddMinutes(s.DateTimeScheduled, s.AppointmentLength) <= toDate);
+                var rslt = ent.AppointmentDiary.Where(s => s.DateTimeScheduled >= fromDate && System.Data.Entity.DbFunctions.AddMinutes(s.DateTimeScheduled, s.AppointmentLength) <= toDate);
 
                 List<DiaryEvent> result = new List<DiaryEvent>();
                 foreach (var item in rslt)
@@ -66,8 +66,8 @@ namespace FullCalendar_MVC.Models
             var toDate = ConvertFromUnixTimestamp(end);
             using (DiaryContainer ent = new DiaryContainer())
             {
-                var rslt = ent.AppointmentDiary.Where(s => s.DateTimeScheduled >= fromDate && System.Data.Objects.EntityFunctions.AddMinutes(s.DateTimeScheduled, s.AppointmentLength) <= toDate)
-                                                        .GroupBy(s => System.Data.Objects.EntityFunctions.TruncateTime(s.DateTimeScheduled))
+                var rslt = ent.AppointmentDiary.Where(s => s.DateTimeScheduled >= fromDate && System.Data.Entity.DbFunctions.AddMinutes(s.DateTimeScheduled, s.AppointmentLength) <= toDate)
+                                                        .GroupBy(s => System.Data.Entity.DbFunctions.TruncateTime(s.DateTimeScheduled))
                                                         .Select(x => new { DateTimeScheduled = x.Key, Count = x.Count() });
 
                 List<DiaryEvent> result = new List<DiaryEvent>();
@@ -129,7 +129,7 @@ namespace FullCalendar_MVC.Models
                 if (EventID > 0)
                 {
                     rec.ID = EventID;
-                    ent.Entry(rec).State = EntityState.Modified;
+                    ent.Entry(rec).State = System.Data.Entity.EntityState.Modified;
                     ent.SaveChanges();
 
 

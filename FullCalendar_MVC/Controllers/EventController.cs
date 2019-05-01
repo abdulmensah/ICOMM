@@ -144,7 +144,7 @@ namespace FullCalendar_MVC.Controllers
             Sataals.Khutbah2 = Khutbah2;
             Sataals.Jumma2 = Jumma2;
 
-            db.Entry(Sataals).State = System.Data.EntityState.Modified;
+            db.Entry(Sataals).State = EntityState.Modified;// System.Data.EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("SetSalaat");
@@ -277,7 +277,7 @@ namespace FullCalendar_MVC.Controllers
                         artwork.ArtworkThumbnail = thumbNew.FileContents;
                     }
                     //Save model object to database
-                    db.Entry(artwork).State = System.Data.EntityState.Modified;
+                    db.Entry(artwork).State = EntityState.Modified;// System.Data.EntityState.Modified;
                     //   db.ArtWorks.Add(artwork);
                     db.SaveChanges();
                     System.IO.File.Delete(filePathOriginal);
@@ -311,7 +311,7 @@ namespace FullCalendar_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(appointmentdiary).State = System.Data.EntityState.Modified;
+                db.Entry(appointmentdiary).State = EntityState.Modified;// System.Data.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

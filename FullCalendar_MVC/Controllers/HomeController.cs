@@ -34,6 +34,12 @@ namespace FullCalendar_MVC.Controllers
             return View();
         }
 
+        public JsonResult GetHeaders()
+        {
+          //  return View();
+      return Json(Request.Headers.AllKeys.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult GetEvents()
         {

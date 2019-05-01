@@ -28,6 +28,8 @@ public partial class FamilyMembers
 
     public Nullable<int> IcomMembersId { get; set; }
 
+    public Nullable<bool> PrimaryMember { get; set; }
+
 }
 
 }

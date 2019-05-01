@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace FullCalendar_MVC.Controllers
 {
@@ -16,9 +17,49 @@ namespace FullCalendar_MVC.Controllers
         // GET: /Member/
 
         [Authorize]
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.IcomMembers.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Address" ? "address_desc" : "Address";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var members = from s in db.IcomMembers
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                members = members.Where(s => s.FullName.Contains(searchString)
+                                       || s.Email.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    members = members.OrderByDescending(s => s.FullName);
+                    break;
+                case "Address":
+                    members = members.OrderBy(s => s.Address);
+                    break;
+                case "address_desc":
+                    members = members.OrderByDescending(s => s.Address);
+                    break;
+                default:
+                    members = members.OrderBy(s => s.FullName);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(members.ToList().Select(m => CreateMember(m)).ToPagedList(pageNumber, pageSize));
         }
 
         //
@@ -77,10 +118,11 @@ namespace FullCalendar_MVC.Controllers
             return Json(company, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AddToFamily(int id)
+        public ActionResult AddToFamily(int id, bool isPrimary = false)
         {
             var u = new FamilyViewModel();
             u.IncIndex = id;
+            u.IsPrimary = isPrimary;
             return PartialView("AddToFamily", u);
         }
 
@@ -105,41 +147,19 @@ namespace FullCalendar_MVC.Controllers
                 };
 
                 member.DateRegistered = DateTime.Now;
-                var dOB = icmb.DOB;
-                var fullName = icmb.FullName;
                 db.IcomMembers.Add(member);
-                 db.SaveChanges();
-                db.IcomMembers.Add(member);
-                var Id = member.IcomMembersId;
-                int intFamMbrs = 1;
-                db.FamilyMembers.Add(new FamilyMembers { DOB = dOB, FullName = fullName, IcomMembersId = Id, DateAdded = DateTime.Now });
-
-                var allFamilyMembers = icmb.Family;
-                if (allFamilyMembers != null)
-                {
-                    foreach (var fm in allFamilyMembers)
-                    {
-                        if (!string.IsNullOrWhiteSpace(fm.FamilyFullName))
-                        {
-                            var fM = new FamilyMembers
-                            {
-                                DOB = fm.FamilyDOB,
-                                FullName = fm.FamilyFullName,
-                                IcomMembersId = Id,
-                                DateAdded = DateTime.Now
-                            };
-                            db.FamilyMembers.Add(fM);
-                            if (CalculateAge((DateTime)fm.FamilyDOB) >= 18)
-                            { intFamMbrs++; }
-
-                        }
-                    }
-                }
                 db.SaveChanges();
-                var currMember = db.IcomMembers.Find(Id);
-                currMember.AmountCharged = Convert.ToDecimal(intFamMbrs * 120.0M);
-                db.Entry(currMember).State = EntityState.Modified;
-                db.SaveChanges();
+
+                //var dOB = member.DOB;
+                //var fullName = member.FullName;
+                //db.FamilyMembers.Add(new FamilyMembers { DOB = dOB, FullName = fullName, IcomMembersId = member.IcomMembersId, DateAdded = DateTime.Now });
+                //db.SaveChanges();
+
+                icmb.Family = icmb.Family.Concat(new List<FamilyViewModel>() { new FamilyViewModel { FamilyDOB = member.DOB, FamilyFullName = member.FullName, IncIndex = 1, IsPrimary=true } });
+                //mList.Add
+                icmb.IcomMembersId = member.IcomMembersId;
+
+                SaveFamilies(icmb.IcomMembersId, icmb.Family);
                 Response.Redirect("https://services.madinaapps.com/donation/clients/icom/paymentOptions/308");
             }
 
@@ -152,31 +172,113 @@ namespace FullCalendar_MVC.Controllers
         [Authorize]
         public ActionResult Edit(int id = 0)
         {
-            IcomMembers icommembers = db.IcomMembers.Find(id);
-            if (icommembers == null)
+            IcomMembers member = db.IcomMembers.Find(id);
+            if (member == null)
             {
                 return HttpNotFound();
             }
-            return View(icommembers);
+            return View(CreateMember(member));
+        }
+
+
+
+        private RegisterViewModel CreateMember(IcomMembers icmb)
+        {
+            return new RegisterViewModel
+            {
+                IcomMembersId = icmb.IcomMembersId,
+                AmountCharged = icmb.AmountCharged,
+                AmountPaid = icmb.AmountPaid,
+                DateRegistered = icmb.DateRegistered,
+                Country = icmb.Country,
+                FullName = icmb.FullName,
+                State = icmb.State,
+                Address = icmb.Address,
+                City = icmb.City,
+                DOB = icmb.DOB,
+                Email = icmb.Email,
+                Phone = icmb.Phone,
+                PostalCode = icmb.PostalCode,
+                IsDeleted = icmb.IsDeleted
+        };
+
         }
 
         //
         // POST: /Member/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(IcomMembers icommembers)
+        public ActionResult Edit(RegisterViewModel icmb)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(icommembers).State = EntityState.Modified;
+                //Save Member Details
+                var member = db.IcomMembers.Find(icmb.IcomMembersId);
+                member.Country = icmb.Country;
+                member.FullName = icmb.FullName;
+                member.State = icmb.State;
+                member.Address = icmb.Address;
+                member.City = icmb.City;
+                member.DOB = icmb.DOB;
+                member.Email = icmb.Email;
+                member.Phone = icmb.Phone;
+                member.PostalCode = icmb.PostalCode;
+                member.DateRegistered = icmb.DateRegistered;
+                member.AmountPaid = icmb.AmountPaid;
+                member.IsDeleted = icmb.IsDeleted;
+
+                db.Entry(member).State = EntityState.Modified;
                 db.SaveChanges();
+
+
+                //Remove all existing family details for this member
+                db.FamilyMembers.RemoveRange(db.FamilyMembers.Where(m => m.IcomMembersId == member.IcomMembersId));
+                db.SaveChanges();
+                icmb.Family = icmb.Family.Concat(new List<FamilyViewModel>() { new FamilyViewModel { FamilyDOB = member.DOB, FamilyFullName = member.FullName, IncIndex = 1, IsPrimary = true } });
+
+                //Save new Family member details for this member
+                SaveFamilies(icmb.IcomMembersId, icmb.Family.ToList());
+
                 return RedirectToAction("Index");
             }
-            return View(icommembers);
+            return View(icmb);
         }
 
+
+        private void SaveFamilies(int Id, IEnumerable<FamilyViewModel> members, int currMembers = 0)
+        {
+            //Save Family member details
+          //  var Id = member.IcomMembersId;
+            int intFamMbrs = currMembers;
+            var allFamilyMembers = members;
+            if (allFamilyMembers != null)
+            {
+                foreach (var fm in allFamilyMembers)
+                {
+                    if (!string.IsNullOrWhiteSpace(fm.FamilyFullName))
+                    {
+                        var fM = new FamilyMembers
+                        {
+                            DOB = fm.FamilyDOB,
+                            FullName = fm.FamilyFullName,
+                            IcomMembersId = Id,
+                            DateAdded = DateTime.Now,
+                            PrimaryMember=fm.IsPrimary
+                        };
+                        db.FamilyMembers.Add(fM);
+                        if (CalculateAge((DateTime)fm.FamilyDOB) >= 18)
+                        { intFamMbrs++; }
+
+                    }
+                }
+            }
+            db.SaveChanges();
+            var currMember = db.IcomMembers.Find(Id);
+            currMember.AmountCharged = Convert.ToDecimal(intFamMbrs * 120.0M);
+            db.Entry(currMember).State = EntityState.Modified;
+            db.SaveChanges();
+        }
         //
         // GET: /Member/Delete/5
 
@@ -194,13 +296,26 @@ namespace FullCalendar_MVC.Controllers
         //
         // POST: /Member/Delete/5
 
+        [Authorize]
+        public ActionResult DeleteMember(int id, int status = 1)
+        {
+            IcomMembers icommembers = db.IcomMembers.Find(id);
+            icommembers.IsDeleted = status != 0;
+            db.Entry(icommembers).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, bool blDel=true)
         {
             IcomMembers icommembers = db.IcomMembers.Find(id);
-            db.IcomMembers.Remove(icommembers);
+            //db.IcomMembers.Remove(icommembers);
+            icommembers.IsDeleted = blDel;
+            db.Entry(icommembers).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

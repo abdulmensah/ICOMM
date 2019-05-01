@@ -12,9 +12,10 @@
     string strbtnRemove = "btnCancelAdd" + intItemNum;
     string strFamilyDOB = "FamilyDOB" + intItemNum;
     string strFamilyFullName = "FamilyFullName" + intItemNum;
-    <div class="row divUserRow" id="@strDivID" style="margin-left:10%; width:90%; border-bottom:3px solid #24366a; text-align:right;  @(((intItemNum) % 2) ==0? "background-color:transparent":"")">
+    <div class="row divUserRow" id="@strDivID" @( Model.IsPrimary?"data-block=yes": "data-block=no") style="background-color:antiquewhite;margin-left:10%; width:90%; border-bottom:3px solid #24366a; text-align:right;  @(((intItemNum) % 2) ==0? "background-color:transparent":"")">
 
-        <table style="width:100%; text-align:right;">
+@Html.HiddenFor(model => model.IsPrimary)
+        <table style="width:100%; text-align:right;" >
             <tr>
                 <td style="text-align:right;">
                     <h5 style="display:inline">Full Name:</h5>
@@ -25,8 +26,8 @@
     <h5 style="display:inline;">Date Of Birth:</h5>
 </td>
                 <td class=".h5" style="text-align:right;">
-                    @Html.TextBoxFor(x => x.FamilyDOB, new { @class = "FamilyDOB form-control", @placeholder = "Date Of Birth here", @type = "date" })
-                </td><td>   <button type="button" id="@strbtnRemove" style="width:50px; display:inline" title="Remove Family" name="btnCancelAdd" class="btn-danger btn-block" onclick="@strRemove">X</button>
+                    @Html.TextBoxFor(x => x.FamilyDOB, "{0:yyyy-MM-dd}", new { @class = "FamilyDOB form-control date-picker", @placeholder = "Date Of Birth here", @type="date" })
+                </td><td>   <button type="button" id="@strbtnRemove" style="width:30px; background-color:crimson; display:inline;" title="Remove Family" name="btnCancelAdd" class="btn-danger btn-block btn btn-success" onclick="@strRemove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 </td>
             </tr>
            

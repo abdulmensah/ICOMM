@@ -1,82 +1,140 @@
-﻿@model IEnumerable<FullCalendar_MVC.IcomMembers>
+﻿@model PagedList.IPagedList<FullCalendar_MVC.RegisterViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Membership Registration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+<br />
+<br />
+<br />
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div><br />
 
-<h2>Index</h2>
+<section style="padding-top:30px;padding-bottom:10px;" id="contact-info">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    Find by name or mail: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control SearchString", @id = "SearchString" })
+                    <button style="width:35px; font-weight:bold; display:inline" type="submit" class="btn btn-success btn-block"><i class="fa fa-search"></i></button>
+                </p>
+            }
+            <table id="customers" class="table">
+                <tr>
+                    <th>
+                      @Html.ActionLink("Family Members", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, @style = "color: white;" })   
+                    </th>
+                    <th>
+                        @Html.ActionLink("Contact Details", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, @style = "color: white;" })
+                    </th>
+                    <th>
+                        <label>Payments</label>
+                    </th>
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRegistered)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountPaid)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div style="overflow-y: scroll; width:95%; height:150px"> 
+                            @foreach (var ftm in item.Families)
+                            {
+                                var details = @ftm.FullName + " (DOB: " + Convert.ToDateTime(ftm.DOB).ToString("MM/dd/yyyy") + ");";
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRegistered)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountPaid)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IcomMembersId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IcomMembersId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IcomMembersId })
-        </td>
-    </tr>
-}
+                                <span style="font-weight:normal" >@details</span><br />
 
-</table>
+                            }
+                            </div>
+                        </td>
+                        <td>
+@Html.HiddenFor(model => item.FullName, new { @id = "FullName", @name = "FullName", @class = "FullName" })
+                            @Html.DisplayFor(modelItem => item.Address)<br />
+                            @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State) @Html.DisplayFor(modelItem => item.PostalCode)
+                            <br />@Html.DisplayFor(modelItem => item.Email)<br />
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+
+                        <td>
+                            <label>Charged:</label>   @Html.DisplayFor(modelItem => item.AmountCharged)<br />
+                            <label>Paid:</label>   @Html.DisplayFor(modelItem => item.AmountPaid)<br />
+
+      </td>
+                     
+                        <td>
+                            <table style="padding:0 0 0 0; margin:0 0 0 0; border:0px none transparent">
+                                <tr>
+                                    <td style="border:0px none transparent">
+                                        <button type="button" id="btnClose" style="width:35px; display:inline;" title="Edit Member Details"
+                                                class="btn btn-success btn-block btn-success" name="btnEdit"
+                                                onclick="window.location.href = '@Url.Action("Edit/"+item.IcomMembersId)';">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+
+                                    </td>
+                                    <td style="border:0px none transparent">
+                                        <button type="button"  title="@((bool)item.IsDeleted?"Include Member":"Exclude Member")"
+                                        style="width:35px;  display:inline; background-color:@((bool)item.IsDeleted ? "#0A3BA2": "crimson")" id="btnDeleteMember"
+                                                class="btn btn-success btn-block btnDeleteMember" name="btnDeleteMember"
+                                                onclick="DeleteMember(this,@item.IcomMembersId)" value="@((bool)item.IsDeleted ? "Un-Delete" : "Delete")">
+                                            @if ((bool)item.IsDeleted)
+                                            {<i class="fa fa-check"></i>
+                                            }
+                                            else
+                                            {<i class="fa fa-times"></i>
+                                            }
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div></div></section>
+
+<script>
+    function DeleteMember(obj, Id) {
+
+        var intDel = $(obj).val() == "Un-Delete" ? 0 : 1;
+        var strDel = $(obj).val() == "Un-Delete" ? "inculde" : "exclude";
+        var strDelCol = $(obj).val() == "Un-Delete" ? "crimson" : "#0A3BA2";
+        var strDelTitle = $(obj).val() == "Un-Delete" ? "Exclude Member" : "Include Member";
+        var strDelText = $(obj).val() == "Un-Delete" ? "fa fa-times" : "fa fa-check";
+
+        var UserInfo = { id: Id, status: intDel };
+        var fullName = $('#FullName');
+
+        if (confirm("Are you sure you want to "+strDel+" this Icom Member: " + fullName.val() + "?")) {
+
+            $.ajax({
+                url: "/Member/DeleteMember",
+                data: UserInfo,
+                cache: false,
+                success: function (html) {
+                    var state = intDel == 0 ? "Delete" : "Un-Delete";
+                    $(obj).val(state);
+                    $(obj).children("i").attr("class", strDelText);
+                    $(obj).prop('title', strDelTitle);
+                    $(obj).css("background-color", strDelCol);;
+                }
+            });
+        }
+
+
+    }
+</script>
