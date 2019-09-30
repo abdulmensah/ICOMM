@@ -1,0 +1,85 @@
+﻿@model FullCalendar_MVC.DonationViewModel
+
+@{
+    ViewBag.Title = "Masjid Donation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<br />
+<br />
+<br />
+<div style="background-color:#0A3BA2; position:fixed; height:30px; width:100%">
+    <img src="~/Images/spacer.gif" style="height:100%; width:23px" />
+</div><br />
+
+<section style="padding-top:30px;padding-bottom:10px;" id="contact-info">
+    <div class="container">
+        <div class="row">
+            <div style="width:800px; text-align:right;background-color:#F1E872; border-radius:5px;font-weight:bold; padding-top:0px; padding-left:0px; font-size:13pt;" class="col-sm-5">
+                @using (Html.BeginForm("CurrDonation", "Event", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Createform" }))
+                {
+                <div style="padding-bottom:10px" class="center">
+                    <h4 class="modal-title" id="myModalLabel">ICOM @ViewBag.Title</h4>
+                </div>
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                    @Html.LabelFor(model => model.DonationType, new { @class = "control-label" }):
+                    @Html.EditorFor(model => model.DonationType, new { @class = "form-control" })
+
+                </div>
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+                    @Html.LabelFor(model => model.TargetAmount, new { @class = "control-label" }):
+                    @Html.EditorFor(model => model.TargetAmount, new { @class = "form-control" })
+                </div>
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                    @Html.LabelFor(model => model.CurrentAmount, new { @class = "control-label" }):
+                    @*<input id="DOB" name="DOB" style="display:inline" class="form-control" type="date" />*@
+                    @Html.EditorFor(model => model.CurrentAmount, new { @class = "form-control" })
+                </div>
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label" }):
+                    @Html.EditorFor(model => model.Description, new { @class = "form-control" })
+                </div>
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                    @Html.LabelFor(model => model.Image, new { @class = "control-label" }):
+                    @Html.EditorFor(model => model.Image, new { @class = "form-control" })
+                </div>
+                <div style="padding-right:20%;margin-bottom:0px" class="form-group">
+
+                    @Html.LabelFor(model => model.Background, new { @class = "control-label" }):
+                    @Html.EditorFor(model => model.Background, new { @class = "form-control" })
+                </div>
+
+
+                <br />
+
+                <p style="text-align:right">
+                    <button type="submit" style="width:150px; font-weight:bold; display:inline" class="btn btn-success btn-block"><i class="fa fa-save"></i> Submit</button>
+                </p>
+
+
+                }
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+

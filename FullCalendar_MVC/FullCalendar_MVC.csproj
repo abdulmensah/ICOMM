@@ -203,6 +203,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Diary.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Donation.cs">
+      <DependentUpon>Diary.tt</DependentUpon>
+    </Compile>
     <Compile Include="FamilyMembers.cs">
       <DependentUpon>Diary.tt</DependentUpon>
     </Compile>
@@ -223,6 +226,7 @@
     <Compile Include="Models\GalleryEvent.cs" />
     <Compile Include="Models\HomeData.cs" />
     <Compile Include="Models\ICustomPrincipal.cs" />
+    <Compile Include="Models\DonationViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -306,6 +310,7 @@
     <Content Include="Content\images\Donatemadinaapps.png" />
     <Content Include="Content\images\favicon.png" />
     <Content Include="Content\images\gfmlogoem2.png" />
+    <Content Include="Content\images\gfmlogoemINDEX.png" />
     <Content Include="Content\images\goFundMe.png" />
     <Content Include="Content\images\icomdonate.png" />
     <Content Include="Content\images\icomlogo.png" />
@@ -345,6 +350,8 @@
     <Content Include="Content\images\man3.jpg" />
     <Content Include="Content\images\man4.jpg" />
     <Content Include="Content\images\map.jpg" />
+    <Content Include="Content\images\masjidexpansion2.jpeg" />
+    <Content Include="Content\images\masjigexpansion1.jpeg" />
     <Content Include="Content\images\muslim-prayer.png" />
     <Content Include="Content\images\partners\Alrahmah.png" />
     <Content Include="Content\images\partners\isb.jpeg" />
@@ -440,6 +447,8 @@
     <Content Include="Content\images\slider\bg3.jpg" />
     <Content Include="Content\images\slider\bg4.jpg" />
     <Content Include="Content\images\slider\bg5.jpg" />
+    <Content Include="Content\images\slider\bg6.png" />
+    <Content Include="Content\images\slider\bg7.jpg" />
     <Content Include="Content\images\slider\img1.png" />
     <Content Include="Content\images\slider\img2.png" />
     <Content Include="Content\images\slider\img3.png" />
@@ -572,7 +581,10 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\suncalc.js" />
     <Content Include="Scripts\wow.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Views\Home\bootstrap.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -621,6 +633,9 @@
     <Content Include="Views\Member\Delete.cshtml" />
     <Content Include="Views\Member\AddToFamily.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Home\Expand.cshtml" />
+    <Content Include="Views\Event\Donation.cshtml" />
+    <Content Include="Views\Home\Expand2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

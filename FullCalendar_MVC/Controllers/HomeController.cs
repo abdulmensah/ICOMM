@@ -14,8 +14,13 @@ namespace FullCalendar_MVC.Controllers
             var timeUtc = DateTime.UtcNow;
             TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+            DiaryContainer db = new DiaryContainer();
+
+            var donation = db.Donation.FirstOrDefault();
 
             ViewBag.CurrDate = easternTime.ToLongDateString();
+            ViewBag.TargetAmount = String.Format("{0:n0}", donation.TargetAmount);
+            ViewBag.CurrAmount = String.Format("{0:n0}", donation.CurrentAmount);  
             return View();
         }
 
@@ -26,6 +31,17 @@ namespace FullCalendar_MVC.Controllers
 
         public ActionResult Donate()
         {
+            return View();
+        }
+        public ActionResult Expand()
+        {
+            DiaryContainer db = new DiaryContainer();
+
+            var donation = db.Donation.FirstOrDefault();
+
+            ViewBag.TargetAmount = String.Format("{0:n0}", donation.TargetAmount);
+            ViewBag.CurrAmount = String.Format("{0:n0}", donation.CurrentAmount);
+
             return View();
         }
 

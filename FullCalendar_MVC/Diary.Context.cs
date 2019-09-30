@@ -62,6 +62,8 @@ public partial class DiaryContainer : DbContext
 
     public DbSet<states> states { get; set; }
 
+    public DbSet<Donation> Donation { get; set; }
+
 }
 
 }

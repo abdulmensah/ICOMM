@@ -318,8 +318,50 @@ namespace FullCalendar_MVC.Controllers
             return View(appointmentdiary);
         }
 
+        [Authorize]
+        public ActionResult Donation()
+        {
+            var donation = db.Donation.FirstOrDefault();
+            if (donation == null)
+            {
+                return HttpNotFound();
+            }
+            DonationViewModel currDon = new DonationViewModel
+            {
+                DonationID = donation.DonationID,
+                Image = donation.Image,
+                Background = donation.Background,
+                TargetAmount = (decimal)donation.TargetAmount,
+                CurrentAmount = (decimal)donation.CurrentAmount,
+                Description = donation.Description,
+                DonationType = donation.DonationType
+            };
+            return View(currDon);
+        }
+
         //
         // GET: /Event/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CurrDonation(DonationViewModel currDon)
+        {
+            if (ModelState.IsValid)
+            {
+                var donation = db.Donation.FirstOrDefault();
+                donation.Description = currDon.Description;
+                donation.DonationType = currDon.DonationType;
+                donation.DateSet = DateTime.Now;
+                donation.TargetAmount = currDon.TargetAmount;
+                donation.CurrentAmount = currDon.CurrentAmount;
+
+                db.Entry(donation).State = EntityState.Modified;// System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Donation");
+            }
+
+            return View(currDon);
+        }
 
         public ActionResult Delete(int id = 0)
         {

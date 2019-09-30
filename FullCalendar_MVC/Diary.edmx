@@ -48,6 +48,19 @@
           <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="abbreviation" Type="varchar" MaxLength="4" Nullable="false" />
         </EntityType>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CurrentAmount" Type="money" />
+          <Property Name="TargetAmount" Type="money" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Image" Type="nchar" MaxLength="10" />
+          <Property Name="Background" Type="nchar" MaxLength="10" />
+          <Property Name="DateSet" Type="datetime" />
+          <Property Name="DonationType" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="FamilyMembers">
           <Key>
             <PropertyRef Name="FamilyMembersID" />
@@ -223,6 +236,7 @@
           <EntitySet Name="ArtWorks" EntityType="Self.ArtWorks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donation" EntityType="Self.Donation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FamilyMembers" EntityType="Self.FamilyMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IcomMembers" EntityType="Self.IcomMembers" Schema="dbo" store:Type="Tables" />
@@ -268,6 +282,7 @@
           <EntitySet Name="FamilyMembers" EntityType="Diary.FamilyMembers" />
           <EntitySet Name="countries" EntityType="Diary.countries" />
           <EntitySet Name="states" EntityType="Diary.states" />
+          <EntitySet Name="Donation" EntityType="Diary.Donation" />
         </EntityContainer>
         <EntityType Name="ContactInfo">
           <Key>
@@ -455,6 +470,19 @@
           <Property Name="country_id" Type="Int64" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="abbreviation" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="Guid" Nullable="false" />
+          <Property Name="CurrentAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TargetAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Background" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DateSet" Type="DateTime" Precision="3" />
+          <Property Name="DonationType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -664,6 +692,20 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="country_id" ColumnName="country_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donation">
+            <EntityTypeMapping TypeName="Diary.Donation">
+              <MappingFragment StoreEntitySet="Donation">
+                <ScalarProperty Name="DonationType" ColumnName="DonationType" />
+                <ScalarProperty Name="DateSet" ColumnName="DateSet" />
+                <ScalarProperty Name="Background" ColumnName="Background" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TargetAmount" ColumnName="TargetAmount" />
+                <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

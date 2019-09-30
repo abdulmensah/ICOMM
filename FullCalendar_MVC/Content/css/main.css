@@ -11,28 +11,35 @@ body {
     color: #4e4e4e;
     line-height: 22px;
 }
+
 #customers {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-#customers td, #customers th {
-  border: 1px solid #ddd; vertical-align:top;
-  padding: 8px;
-}
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        vertical-align: top;
+        padding: 8px;
+    }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-#customers tr:hover {background-color: #ddd;}
+    #customers tr:hover {
+        background-color: #ddd;
+    }
 
-#customers th, #customers th a {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
+    #customers th, #customers th a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+
 h1,
 h2,
 h3,
@@ -43,6 +50,7 @@ h6 {
     font-family: 'Open Sans', sans-serif;
     color: #0A3BA2;
 }
+
 .SearchString {
     border: 1px solid #4CAF50;
 }
@@ -250,7 +258,28 @@ body > section {
         display: none;
         visibility: hidden;
     }
+        .thumb span {
+    display: none;
+    visibility: hidden;
+}
 
+    .donate-image-container {
+        width: 100%;
+    }
+
+    #donate-expand {
+        padding-right: 0px;
+    }
+
+    #thumbwrap {
+        position: relative;
+        margin: 0px auto;
+        width: 90%;
+    }
+ #donate-partners {
+        
+        width: 90%;
+    }
     .top-social {
         width: 100%;
     }
@@ -266,7 +295,8 @@ body > section {
         width: 100%;
     }
 
-    .Midlle { display:none;
+    .Midlle {
+        display: none;
         margin-left: 0%;
         width: 0%;
     }
@@ -276,6 +306,28 @@ body > section {
     .top-social {
         right: 0px;
         float: right;
+    }
+
+    #donate-partners {
+        
+        width: 600px;
+    } 
+    .thumb span {
+    position: absolute;
+    visibility: hidden;
+}
+    .donate-image-container {
+        width: 250px;
+    }
+
+    #donate-expand {
+        padding-right: 20%;
+    }
+
+    #thumbwrap {
+        position: relative;
+        margin: 0px auto;
+        width: 550px;
     }
 
     .PrayerDates {
@@ -610,6 +662,7 @@ input.search-form {
     }
 
 #main-slider .active .animation.animated-item-1 {
+    padding-left: 20px;
     -webkit-animation: fadeInUp 300ms linear 300ms both;
     -moz-animation: fadeInUp 300ms linear 300ms both;
     -o-animation: fadeInUp 300ms linear 300ms both;
@@ -618,6 +671,7 @@ input.search-form {
 }
 
 #main-slider .active .animation.animated-item-2 {
+    padding-left: 20px;
     -webkit-animation: fadeInUp 300ms linear 600ms both;
     -moz-animation: fadeInUp 300ms linear 600ms both;
     -o-animation: fadeInUp 300ms linear 600ms both;
@@ -639,6 +693,22 @@ input.search-form {
     -o-animation: fadeInUp 300ms linear 1200ms both;
     -ms-animation: fadeInUp 300ms linear 1200ms both;
     animation: fadeInUp 300ms linear 1200ms both;
+}
+
+
+.thumb img {
+    border: 0px none transparent;
+    margin: 3px;
+    float: left;
+}
+
+
+
+.thumb:hover, .thumb:hover span {
+    visibility: visible;
+    top: 0;
+    left: 0px;
+    z-index: 1;
 }
 
 #feature {
